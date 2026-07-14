@@ -6,11 +6,16 @@ import stickerCoffee from "@/assets/sticker-coffee.png";
 import stickerButterfly from "@/assets/sticker-butterfly.png";
 import stickerHeadphones from "@/assets/sticker-headphones.png";
 import stickerNotebook from "@/assets/sticker-notebook.png";
-import founderImg from "@/assets/founder.jpg";
-import workshop1 from "@/assets/workshop-1.jpg";
-import workshop2 from "@/assets/workshop-2.jpg";
-import workshop3 from "@/assets/workshop-3.jpg";
-import workshop4 from "@/assets/workshop-4.jpg";
+import founderAsset from "@/assets/founder-kyla.jpg.asset.json";
+import workshop1Asset from "@/assets/community-1.jpg.asset.json";
+import workshop2Asset from "@/assets/community-2.jpg.asset.json";
+import workshop3Asset from "@/assets/community-3.jpg.asset.json";
+import workshop4Asset from "@/assets/community-4.jpg.asset.json";
+const founderImg = founderAsset.url;
+const workshop1 = workshop1Asset.url;
+const workshop2 = workshop2Asset.url;
+const workshop3 = workshop3Asset.url;
+const workshop4 = workshop4Asset.url;
 
 export const Route = createFileRoute("/")({
   head: () => ({
