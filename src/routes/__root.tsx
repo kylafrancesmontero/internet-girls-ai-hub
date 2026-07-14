@@ -184,19 +184,60 @@ function SiteNav() {
   );
 }
 
+function Marquee() {
+  const text =
+    "💜 Making AI easy & fun to learn ✨  Workshops 💻  Meetups ☕  Community 👩‍💻  ";
+  return (
+    <div className="relative overflow-hidden border-y border-border/40 bg-white/60 py-3.5">
+      <div className="animate-marquee flex whitespace-nowrap">
+        {[...Array(4)].map((_, i) => (
+          <span
+            key={i}
+            className="mx-6 text-sm font-medium tracking-wide text-muted-foreground"
+          >
+            {text}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ExternalLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+    >
+      {children}
+    </a>
+  );
+}
+
 function SiteFooter() {
   return (
-    <footer className="mt-24 border-t border-border/60 py-10">
-      <div className="mx-auto flex w-[min(1200px,calc(100%-2rem))] flex-col items-center justify-between gap-4 text-sm text-muted-foreground sm:flex-row">
+    <footer className="mt-24">
+      <Marquee />
+      <div className="mx-auto flex w-[min(1200px,calc(100%-2rem))] flex-col items-center justify-between gap-6 py-10 sm:flex-row">
         <div className="flex items-center gap-2">
           <span className="inline-block h-5 w-5 rounded-full bg-brand-gradient" aria-hidden />
           <span className="font-medium text-foreground">Internet Girls</span>
         </div>
-        <p>© {new Date().getFullYear()} Internet Girls. Made with care in Southeast Asia.</p>
-        <Link to="/partners" className="hover:text-foreground">
-          Partner with us →
-        </Link>
+        <div className="flex items-center gap-6">
+          <ExternalLink href="https://www.facebook.com/share/g/1HGRrNBHmp/">
+            Facebook Group
+          </ExternalLink>
+          <ExternalLink href="https://instagram.com/internetgirls.ai">Instagram</ExternalLink>
+          <ExternalLink href="https://www.linkedin.com/company/internet-girls/">
+            LinkedIn
+          </ExternalLink>
+        </div>
       </div>
+      <p className="pb-10 text-center text-xs text-muted-foreground">
+        © {new Date().getFullYear()} Internet Girls. All rights reserved.
+      </p>
     </footer>
   );
 }
