@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { Resend } from "resend";
 
-const resend = new Resend("re_eMNVxUSN_NDiWBuNUspwEvZ347eXnJeUw");
+const resend = new Resend(process.env.RESEND_API_KEY);
 const GOOGLE_SHEETS_WEBHOOK = "https://script.google.com/macros/s/AKfycbxv4qQSDLdcOuS6Zuq49nsIigs1E8MZxsR2aiFiEa71UoOBktPPZ-QEa5qul-0hTIG2/exec";
 
 export const submitWaitlist = createServerFn({ method: "POST" })
