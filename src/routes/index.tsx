@@ -628,7 +628,7 @@ function WhyExists() {
             Why <span className="text-gradient italic">Internet Girls</span>{" "}
             exists
           </h2>
-          <div class="mt-6 space-y-5 text-lg leading-relaxed text-foreground/80"></div>
+          
           <div className="mt-6 space-y-5 text-lg leading-relaxed text-foreground/80">
             <p>
               Our founder, Kyla, believes AI will become as essential as using
