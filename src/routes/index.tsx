@@ -1,18 +1,27 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type CSSProperties, type FormEvent } from "react";
-import stickerFlipPhone from "@/assets/sticker-flip-phone.png";
-import stickerImac from "@/assets/sticker-imac.png";
-import stickerIpod from "@/assets/sticker-ipod.png";
-import founderAsset from "@/assets/founder-kyla.jpg.asset.json";
-import workshop1Asset from "@/assets/community-1.jpg.asset.json";
-import workshop2Asset from "@/assets/community-2.jpg.asset.json";
-import workshop3Asset from "@/assets/community-3.jpg.asset.json";
-import workshop4Asset from "@/assets/community-4.jpg.asset.json";
-const founderImg = founderAsset.url;
-const workshop1 = workshop1Asset.url;
-const workshop2 = workshop2Asset.url;
-const workshop3 = workshop3Asset.url;
-const workshop4 = workshop4Asset.url;
+import { submitWaitlist } from "@/actions";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import stickerFlipPhone from "@/assets/flip 2.png";
+import stickerImac from "@/assets/laptop 2.png";
+import stickerIpod from "@/assets/ipod 2.png";
+const founderImg = "/kyla.jpeg";
+const workshop1 = "/community1.jpeg";
+const workshop2 = "/community2.jpeg";
+const workshop3 = "/community3.jpeg";
+const workshop4 = "/community4.jpeg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -34,6 +43,7 @@ function Index() {
       <WhatYoullLearn />
       <WhyExists />
       <Community />
+      <FAQ />
       <FinalCTA />
     </>
   );
@@ -68,7 +78,7 @@ const STICKERS: Sticker[] = [
     kind: "image",
     src: stickerFlipPhone,
     alt: "Pastel pink flip phone sticker",
-    style: { top: "6%", left: "5%" },
+    style: { top: "12%", left: "5%" },
     size: 170,
     rotate: -10,
     delay: 0,
@@ -330,10 +340,26 @@ function SparkleStarSticker() {
 
 function WaitlistCard() {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  function onSubmit(e: FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    const formData = new FormData(e.currentTarget);
+    try {
+      await submitWaitlist({
+        data: {
+          name: formData.get("name") as string,
+          email: formData.get("email") as string,
+        },
+      });
+      setSubmitted(true);
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -345,20 +371,31 @@ function WaitlistCard() {
       <input
         required
         type="text"
-        placeholder="First name"
-        className="flex-1 rounded-2xl border-0 bg-white/70 px-4 py-3 text-sm outline-none ring-1 ring-inset ring-border/60 focus:ring-2 focus:ring-primary"
+        name="name"
+        placeholder="Full name"
+        disabled={loading}
+        className="flex-1 min-w-0 rounded-2xl border-0 bg-white/70 px-4 py-3 text-sm outline-none ring-1 ring-inset ring-border/60 focus:ring-2 focus:ring-primary disabled:opacity-50"
       />
       <input
         required
         type="email"
+        name="email"
         placeholder="you@email.com"
-        className="flex-[1.4] rounded-2xl border-0 bg-white/70 px-4 py-3 text-sm outline-none ring-1 ring-inset ring-border/60 focus:ring-2 focus:ring-primary"
+        disabled={loading}
+        className="flex-[1.4] min-w-0 rounded-2xl border-0 bg-white/70 px-4 py-3 text-sm outline-none ring-1 ring-inset ring-border/60 focus:ring-2 focus:ring-primary disabled:opacity-50"
       />
       <button
         type="submit"
-        className="rounded-2xl bg-brand-gradient px-5 py-3 text-sm font-semibold text-white shadow-soft transition-transform hover:scale-[1.02]"
+        disabled={loading || submitted}
+        className="flex shrink-0 w-[120px] flex-col items-center justify-center rounded-2xl bg-brand-gradient py-2 text-center text-sm font-semibold leading-tight text-white shadow-soft transition-transform hover:scale-[1.02] disabled:pointer-events-none disabled:opacity-80"
       >
-        {submitted ? "You're in ✨" : "Join the Waitlist"}
+        {loading ? (
+          "Joining..."
+        ) : submitted ? (
+          <>You're<br />in ✨</>
+        ) : (
+          <>Join the<br />Waitlist</>
+        )}
       </button>
     </form>
   );
@@ -469,64 +506,68 @@ function WhatYoullLearn() {
           </span>
         </div>
 
-        <div className="relative mt-12">
-          <div
-            className="scrollbar-hidden flex snap-x snap-mandatory gap-5 overflow-x-auto pb-8 pt-2"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none", scrollPaddingInline: "1rem" }}
-          >
-            {LEARN_CARDS.map((card, i) => (
-              <article
-                key={card.question}
-                className={`relative flex w-[min(85vw,320px)] flex-shrink-0 snap-start flex-col rounded-3xl bg-card p-6 shadow-soft ring-1 ring-border/60 sm:w-[340px] sm:p-7 ${
-                  i === 0 ? "ring-2 ring-primary/20" : ""
-                }`}
-              >
-                <span
-                  className="w-fit rounded-full px-3 py-1 text-xs font-semibold text-foreground/80"
-                  style={{ background: card.tagBg }}
-                >
-                  {i === 0 ? "01 · Foundation" : `0${i + 1} · ${card.tag}`}
-                </span>
-                <h3 className="mt-4 text-2xl leading-tight">{card.question}</h3>
-
-                {i === 0 ? (
-                  <div className="mt-5 flex flex-1 flex-col gap-4">
-                    {card.sections?.map((s) => (
-                      <div key={s.title}>
-                        <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                          {s.title}
-                        </p>
-                        <ul className="space-y-1.5">
-                          {s.items.map((it) => (
-                            <li
-                              key={it}
-                              className="flex items-start gap-2 text-sm text-foreground/85"
-                            >
-                              <span className="mt-1.5 inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-brand-gradient" />
-                              {it}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="mt-5 flex flex-1 flex-col gap-3">
-                    <span className="w-fit rounded-full bg-gradient-to-r from-[oklch(0.88_0.14_300)] via-[oklch(0.9_0.13_20)] to-[oklch(0.92_0.14_55)] px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-foreground/80">
-                      {card.status}
+        <div className="relative mt-12 w-full">
+          <Carousel opts={{ align: "start" }} className="w-full">
+            <CarouselContent className="-ml-5 py-2">
+              {LEARN_CARDS.map((card, i) => (
+                <CarouselItem key={card.question} className="pl-5 basis-auto">
+                  <article
+                    className={`relative flex h-full w-[min(85vw,320px)] flex-col rounded-3xl bg-card p-6 shadow-soft ring-1 ring-border/60 sm:w-[340px] sm:p-7 ${i === 0 ? "ring-2 ring-primary/20" : ""
+                      }`}
+                  >
+                    <span
+                      className="w-fit rounded-full px-3 py-1 text-xs font-semibold text-foreground/80"
+                      style={{ background: card.tagBg }}
+                    >
+                      {i === 0 ? "01 · Foundation" : `0${i + 1} · ${card.tag}`}
                     </span>
-                    <p className="text-sm leading-relaxed text-foreground/80">
-                      {card.description}
-                    </p>
-                    <p className="mt-auto pt-4 text-xs font-medium text-muted-foreground">
-                      {card.meta}
-                    </p>
-                  </div>
-                )}
-              </article>
-            ))}
-          </div>
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[var(--color-background)] to-transparent sm:w-32" />
+                    <h3 className="mt-4 text-2xl leading-tight">{card.question}</h3>
+
+                    {i === 0 ? (
+                      <div className="mt-5 flex flex-1 flex-col gap-4">
+                        {card.sections?.map((s) => (
+                          <div key={s.title}>
+                            <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                              {s.title}
+                            </p>
+                            <ul className="space-y-1.5">
+                              {s.items.map((it) => (
+                                <li
+                                  key={it}
+                                  className="flex items-start gap-2 text-sm text-foreground/85"
+                                >
+                                  <span className="mt-1.5 inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-brand-gradient" />
+                                  {it}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="mt-5 flex flex-1 flex-col gap-3">
+                        <span className="w-fit rounded-full bg-gradient-to-r from-[oklch(0.88_0.14_300)] via-[oklch(0.9_0.13_20)] to-[oklch(0.92_0.14_55)] px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-foreground/80">
+                          {card.status}
+                        </span>
+                        <p className="text-sm leading-relaxed text-foreground/80">
+                          {card.description}
+                        </p>
+                        <p className="mt-auto pt-4 text-xs font-medium text-muted-foreground">
+                          {card.meta}
+                        </p>
+                      </div>
+                    )}
+                  </article>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[var(--color-background)] to-transparent sm:w-32" />
+
+            <div className="mt-8 flex items-center justify-center gap-4">
+              <CarouselPrevious className="static translate-y-0 translate-x-0 h-10 w-10 border-border/60 bg-transparent text-muted-foreground hover:bg-card hover:text-foreground hover:border-border/80 shadow-sm" />
+              <CarouselNext className="static translate-y-0 translate-x-0 h-10 w-10 border-border/60 bg-transparent text-muted-foreground hover:bg-card hover:text-foreground hover:border-border/80 shadow-sm" />
+            </div>
+          </Carousel>
         </div>
       </div>
     </section>
@@ -547,48 +588,46 @@ function WhyExists() {
             Why <span className="text-gradient italic">Internet Girls</span>{" "}
             exists
           </h2>
-          
-          <div className="mt-6 space-y-5 text-lg leading-relaxed text-foreground/80">
+
+          <div className="mt-6 space-y-5 text-justify text-lg leading-relaxed text-foreground/80">
             <p>
-              Our founder, Kyla, believes AI will become as essential as using
-              the internet or email.
+              Hey there, I’m Kyla. 👋
             </p>
             <p>
-              As she explored the rapidly changing world of AI, she kept
-              noticing the same pattern. AI was everywhere, but many women
-              around her felt overwhelmed by the endless stream of tools,
-              technical jargon, and conflicting advice. The curiosity was
-              there, what was missing was a welcoming place to start.
+              I created Internet Girls because I believe AI will become as essential as the internet or email. It will shape how we work, create, and grow.
             </p>
             <p>
-              She didn't think the answer was another course. She believed the
-              answer was a community: a place where women could learn together,
-              ask questions freely, and build confidence at their own pace.
+              As I explored AI, I noticed many women around me were curious but overwhelmed. There were endless tools, technical terms, and advice, but not enough spaces where beginners could learn without feeling intimidated.
+            </p>
+            <p>
+              Growing up in Southeast Asia, I saw so many talented and ambitious women eager to embrace new technology but without a welcoming community to learn alongside.
+            </p>
+            <p>
+              I didn’t want to create another course. I wanted to build a community where women could ask questions, experiment, and learn together at their own pace.
             </p>
             <p className="font-medium text-foreground">
-              That's how Internet Girls began.
+              We’re building a future where every woman across Southeast Asia has the confidence to use AI, no matter where she’s starting from.
             </p>
           </div>
           <div className="mt-8 flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-brand-gradient" />
             <div>
               <p className="font-semibold">Kyla · Founder, Internet Girls</p>
               <p className="text-sm text-muted-foreground">
-                Building the space we needed.
+                Free AI literacy for Women
               </p>
             </div>
           </div>
         </div>
 
         <div className="relative flex items-center justify-center">
-          <div className="relative rounded-[2.5rem] p-3 shadow-soft" style={{ background: "linear-gradient(135deg, oklch(0.88 0.14 300), oklch(0.9 0.13 20), oklch(0.92 0.14 55))" }}>
+          <div className="relative rounded-[2rem] shadow-soft">
             <img
               src={founderImg}
               alt="Kyla, founder of Internet Girls"
               width={900}
               height={1100}
               loading="lazy"
-              className="h-[520px] w-[400px] rounded-[2rem] object-cover"
+              className="h-[520px] w-[400px] rounded-[2rem] border border-black object-cover"
             />
           </div>
         </div>
@@ -686,11 +725,16 @@ function FinalCTA() {
           </div>
           <div className="relative">
             <h2 className="mx-auto max-w-3xl text-4xl leading-tight text-white sm:text-6xl">
-              Your AI journey starts here.
+              Your AI Journey Starts Here.
             </h2>
-            <p className="mx-auto mt-5 max-w-2xl text-lg text-white/90">
-              Whether you're completely new to AI or looking to build practical
-              skills, there's a place for you at Internet Girls.
+            <p className="mx-auto mt-6 max-w-2xl text-2xl font-medium text-white/95 leading-relaxed">
+              The first foundational batch launches in the<br className="hidden sm:block" />
+              <span className="inline-block mt-2 rounded-full bg-white/25 px-5 py-1.5 font-semibold text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)] ring-1 ring-white/40 backdrop-blur-md">
+                second week of August 2026
+              </span>
+            </p>
+            <p className="mx-auto mt-4 max-w-2xl text-lg text-white/80">
+              Join the waitlist to get early access, exclusive updates, and be among the first women building with AI together.
             </p>
             <a
               href="#waitlist"
@@ -700,6 +744,70 @@ function FinalCTA() {
               <span aria-hidden>→</span>
             </a>
           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- FAQ ---------------- */
+
+function FAQ() {
+  return (
+    <section className="relative py-24">
+      <div className="mx-auto w-[min(800px,calc(100%-2rem))]">
+        <div className="text-center">
+          <h2 className="text-4xl sm:text-5xl">Got Questions?</h2>
+          <p className="mt-3 text-lg text-muted-foreground">We have answers.</p>
+        </div>
+
+        <div className="mt-12 rounded-3xl glass-strong p-6 sm:p-10">
+          <Accordion type="single" collapsible className="w-full">
+            <AccordionItem value="item-1">
+              <AccordionTrigger className="text-left text-lg font-medium hover:no-underline hover:text-primary">
+                Is Internet Girls free?
+              </AccordionTrigger>
+              <AccordionContent className="text-base text-muted-foreground leading-relaxed">
+                💜 Yes! Joining the community is completely free.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-2">
+              <AccordionTrigger className="text-left text-lg font-medium hover:no-underline hover:text-primary">
+                Who is Internet Girls for?
+              </AccordionTrigger>
+              <AccordionContent className="text-base text-muted-foreground leading-relaxed">
+                👩‍💻 Anyone who identifies as a woman and wants to learn AI, whether you’re just getting started or looking to build your confidence with AI.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-3">
+              <AccordionTrigger className="text-left text-lg font-medium hover:no-underline hover:text-primary">
+                Do I need a technical background?
+              </AccordionTrigger>
+              <AccordionContent className="text-base text-muted-foreground leading-relaxed">
+                ✨ Not at all. Our workshops and resources are designed for beginners with little to no technical experience.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-4">
+              <AccordionTrigger className="text-left text-lg font-medium hover:no-underline hover:text-primary">
+                When does it start?
+              </AccordionTrigger>
+              <AccordionContent className="text-base text-muted-foreground leading-relaxed">
+                📅 Our first foundational cohort begins in the second week of August 2026.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-5" className="border-b-0">
+              <AccordionTrigger className="text-left text-lg font-medium hover:no-underline hover:text-primary">
+                Where are your events held?
+              </AccordionTrigger>
+              <AccordionContent className="text-base text-muted-foreground leading-relaxed">
+                🌏 We’re currently hosting events in Vietnam and the Philippines, with more communities across Southeast Asia coming soon.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
       </div>
     </section>

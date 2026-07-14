@@ -140,7 +140,7 @@ function RootComponent() {
 
 function SiteNav() {
   return (
-    <header className="sticky top-0 z-50 w-full">
+    <header className="fixed top-0 z-50 w-full">
       <div className="mx-auto mt-4 flex w-[min(1200px,calc(100%-2rem))] items-center justify-between rounded-full glass px-5 py-3">
         <Link to="/" className="flex items-center gap-2 font-display text-lg font-semibold">
           <svg
@@ -186,14 +186,14 @@ function SiteNav() {
 
 function Marquee() {
   const text =
-    "💜 Making AI easy & fun to learn ✨  Workshops 💻  Meetups ☕  Community 👩‍💻  ";
+    "💜 Making AI easy & fun to learn ✨ Workshops 💻 Meetups ☕ Community 👩‍💻";
   return (
     <div className="relative overflow-hidden border-y border-border/40 bg-white/60 py-3.5">
-      <div className="animate-marquee flex whitespace-nowrap">
-        {[...Array(4)].map((_, i) => (
+      <div className="animate-marquee flex whitespace-nowrap gap-4" style={{ animationDuration: "10s" }}>
+        {[...Array(6)].map((_, i) => (
           <span
             key={i}
-            className="mx-6 text-sm font-medium tracking-wide text-muted-foreground"
+            className="text-sm font-medium tracking-wide text-muted-foreground"
           >
             {text}
           </span>
@@ -218,11 +218,10 @@ function ExternalLink({ href, children }: { href: string; children: React.ReactN
 
 function SiteFooter() {
   return (
-    <footer className="mt-24">
+    <footer className="">
       <Marquee />
       <div className="mx-auto flex w-[min(1200px,calc(100%-2rem))] flex-col items-center justify-between gap-6 py-10 sm:flex-row">
         <div className="flex items-center gap-2">
-          <span className="inline-block h-5 w-5 rounded-full bg-brand-gradient" aria-hidden />
           <span className="font-medium text-foreground">Internet Girls</span>
         </div>
         <div className="flex items-center gap-6">

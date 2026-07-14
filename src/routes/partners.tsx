@@ -1,5 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from '@tanstack/react-router'
 import { useState, type FormEvent } from "react";
+import { submitPartner } from "@/actions";
 
 export const Route = createFileRoute("/partners")({
   head: () => ({
@@ -110,10 +111,29 @@ function PartnerGrid() {
 
 function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  function onSubmit(e: FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    const formData = new FormData(e.currentTarget);
+    try {
+      await submitPartner({
+        data: {
+          firstName: formData.get("firstName") as string,
+          lastName: formData.get("lastName") as string,
+          email: formData.get("email") as string,
+          inquiryType: formData.get("inquiryType") as string,
+          message: formData.get("message") as string,
+        },
+      });
+      setSubmitted(true);
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -145,21 +165,23 @@ function ContactForm() {
                 className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2"
               >
                 <Field label="First name">
-                  <input required className={inputCls} placeholder="Ada" />
+                  <input required name="firstName" className={inputCls} disabled={loading} />
                 </Field>
                 <Field label="Last name">
-                  <input required className={inputCls} placeholder="Lovelace" />
+                  <input required name="lastName" className={inputCls} disabled={loading} />
                 </Field>
                 <Field label="Email" className="sm:col-span-2">
                   <input
                     required
+                    name="email"
                     type="email"
                     className={inputCls}
                     placeholder="you@company.com"
+                    disabled={loading}
                   />
                 </Field>
                 <Field label="Inquiry type" className="sm:col-span-2">
-                  <select required className={inputCls} defaultValue="">
+                  <select required name="inquiryType" className={inputCls} defaultValue="" disabled={loading}>
                     <option value="" disabled>
                       Select one…
                     </option>
@@ -172,17 +194,20 @@ function ContactForm() {
                 <Field label="Message" className="sm:col-span-2">
                   <textarea
                     required
+                    name="message"
                     rows={5}
                     className={`${inputCls} resize-none`}
                     placeholder="Tell us how you'd like to partner…"
+                    disabled={loading}
                   />
                 </Field>
                 <div className="sm:col-span-2">
                   <button
                     type="submit"
-                    className="w-full rounded-2xl bg-brand-gradient px-6 py-3.5 text-sm font-semibold text-white shadow-soft transition-transform hover:scale-[1.01]"
+                    disabled={loading}
+                    className="w-full rounded-2xl bg-brand-gradient px-5 py-3.5 text-sm font-semibold text-white shadow-soft transition-transform hover:scale-[1.02] disabled:opacity-80 disabled:pointer-events-none"
                   >
-                    Submit
+                    {loading ? "Sending..." : "Send Message"}
                   </button>
                 </div>
               </form>

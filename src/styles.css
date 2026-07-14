@@ -134,6 +134,8 @@
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  padding: 0.1em;
+  margin: -0.1em;
 }
 
 @utility bg-brand-gradient {
