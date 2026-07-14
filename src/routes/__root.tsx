@@ -143,7 +143,25 @@ function SiteNav() {
     <header className="sticky top-0 z-50 w-full">
       <div className="mx-auto mt-4 flex w-[min(1200px,calc(100%-2rem))] items-center justify-between rounded-full glass px-5 py-3">
         <Link to="/" className="flex items-center gap-2 font-display text-lg font-semibold">
-          <span className="inline-block h-7 w-7 rounded-full bg-brand-gradient" aria-hidden />
+          <svg
+            className="h-7 w-7"
+            viewBox="0 0 28 28"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <defs>
+              <linearGradient id="starGradient" x1="0" y1="0" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stopColor="#C4B5FD" />
+                <stop offset="50%" stopColor="#F9A8D4" />
+                <stop offset="100%" stopColor="#FDBA74" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M14 2.5L17.09 9.76L24.5 10.67L19.25 16.09L20.76 23.5L14 19.91L7.24 23.5L8.75 16.09L3.5 10.67L10.91 9.76L14 2.5Z"
+              fill="url(#starGradient)"
+            />
+          </svg>
           <span>Internet Girls</span>
         </Link>
         <nav className="flex items-center gap-2 text-sm">
