@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type CSSProperties, type FormEvent } from "react";
 import stickerPhone from "@/assets/sticker-phone.png";
 import stickerLaptop from "@/assets/sticker-laptop.png";
@@ -6,11 +6,16 @@ import stickerCoffee from "@/assets/sticker-coffee.png";
 import stickerButterfly from "@/assets/sticker-butterfly.png";
 import stickerHeadphones from "@/assets/sticker-headphones.png";
 import stickerNotebook from "@/assets/sticker-notebook.png";
-import founderImg from "@/assets/founder.jpg";
-import workshop1 from "@/assets/workshop-1.jpg";
-import workshop2 from "@/assets/workshop-2.jpg";
-import workshop3 from "@/assets/workshop-3.jpg";
-import workshop4 from "@/assets/workshop-4.jpg";
+import founderAsset from "@/assets/founder-kyla.jpg.asset.json";
+import workshop1Asset from "@/assets/community-1.jpg.asset.json";
+import workshop2Asset from "@/assets/community-2.jpg.asset.json";
+import workshop3Asset from "@/assets/community-3.jpg.asset.json";
+import workshop4Asset from "@/assets/community-4.jpg.asset.json";
+const founderImg = founderAsset.url;
+const workshop1 = workshop1Asset.url;
+const workshop2 = workshop2Asset.url;
+const workshop3 = workshop3Asset.url;
+const workshop4 = workshop4Asset.url;
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -623,26 +628,32 @@ function WhyExists() {
             Why <span className="text-gradient italic">Internet Girls</span>{" "}
             exists
           </h2>
+          
           <div className="mt-6 space-y-5 text-lg leading-relaxed text-foreground/80">
             <p>
-              I kept walking into rooms about AI and noticing the same thing —
-              women weren't at the table. Not because we didn't care, but
-              because nobody was building a space that felt like it was made
-              for us.
+              Our founder, Kyla, believes AI will become as essential as using
+              the internet or email.
             </p>
             <p>
-              So we started small. A workshop in a café. Then a bigger one. Now
-              a growing community of women across Southeast Asia teaching each
-              other how to use, adapt to, and build with AI — with zero gatekeeping.
+              As she explored the rapidly changing world of AI, she kept
+              noticing the same pattern. AI was everywhere, but many women
+              around her felt overwhelmed by the endless stream of tools,
+              technical jargon, and conflicting advice. The curiosity was
+              there, what was missing was a welcoming place to start.
+            </p>
+            <p>
+              She didn't think the answer was another course. She believed the
+              answer was a community: a place where women could learn together,
+              ask questions freely, and build confidence at their own pace.
             </p>
             <p className="font-medium text-foreground">
-              This is the room I wish I walked into. Welcome in.
+              That's how Internet Girls began.
             </p>
           </div>
           <div className="mt-8 flex items-center gap-3">
             <div className="h-10 w-10 rounded-full bg-brand-gradient" />
             <div>
-              <p className="font-semibold">Founder, Internet Girls</p>
+              <p className="font-semibold">Kyla · Founder, Internet Girls</p>
               <p className="text-sm text-muted-foreground">
                 Building the space we needed.
               </p>
@@ -651,12 +662,10 @@ function WhyExists() {
         </div>
 
         <div className="relative flex items-center justify-center">
-          <div className="blob left-6 top-6 h-60 w-60 bg-[oklch(0.88_0.14_300)] opacity-70" />
-          <div className="blob right-6 bottom-4 h-64 w-64 bg-[oklch(0.9_0.13_20)] opacity-70" />
-          <div className="glass-strong relative overflow-hidden rounded-[2.5rem] p-3">
+          <div className="relative rounded-[2.5rem] p-3 shadow-soft" style={{ background: "linear-gradient(135deg, oklch(0.88 0.14 300), oklch(0.9 0.13 20), oklch(0.92 0.14 55))" }}>
             <img
               src={founderImg}
-              alt="Portrait of the founder of Internet Girls"
+              alt="Kyla, founder of Internet Girls"
               width={900}
               height={1100}
               loading="lazy"
@@ -684,24 +693,28 @@ function Community() {
             <span className="text-gradient italic">learning with us.</span>
           </h2>
           <p className="mt-5 text-lg text-muted-foreground">
-            From Ho Chi Minh City to Hanoi — meet the women showing up, asking
-            the questions, and shipping side projects together.
+            Internet Girls started with our very first in-person AI meetup in
+            Hoi An, Vietnam. Since then, we're growing a community of women
+            learning AI together across Southeast Asia through workshops,
+            meetups, and practical learning experiences.
           </p>
-          <div className="mt-8 grid grid-cols-3 gap-3">
-            <Stat value="500+" label="Community members" />
-            <Stat value="15+" label="Workshops hosted" />
-            <Stat value="4" label="Cities in SEA" />
-          </div>
+          <Link
+            to="/partners"
+            className="mt-8 inline-flex items-center gap-2 rounded-full bg-brand-gradient px-6 py-3 text-sm font-semibold text-white shadow-soft transition-transform hover:scale-[1.03]"
+          >
+            Get Involved
+            <span aria-hidden>→</span>
+          </Link>
         </div>
 
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-4">
-            <GalleryImg src={workshop1} alt="Workshop attendees laughing together" ratio="aspect-[4/5]" />
-            <GalleryImg src={workshop2} alt="Women collaborating on laptops" ratio="aspect-square" />
+            <GalleryImg src={workshop1} alt="Kyla with speaker at an Internet Girls meetup in Hoi An" ratio="aspect-[4/5]" />
+            <GalleryImg src={workshop2} alt="Attendees at an AI workshop in Hoi An" ratio="aspect-square" />
           </div>
           <div className="space-y-4 pt-10">
-            <GalleryImg src={workshop3} alt="Speaker presenting at meetup" ratio="aspect-square" />
-            <GalleryImg src={workshop4} alt="Hands typing on a laptop" ratio="aspect-[4/5]" />
+            <GalleryImg src={workshop3} alt="Women collaborating on laptops during a meetup" ratio="aspect-square" />
+            <GalleryImg src={workshop4} alt="Community members learning together" ratio="aspect-[4/5]" />
           </div>
         </div>
       </div>
