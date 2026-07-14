@@ -39,81 +39,424 @@ function Index() {
 
 /* ---------------- Hero ---------------- */
 
+type StickerKind = "image" | "emoji" | "node";
+
+type Sticker = {
+  kind: StickerKind;
+  src?: string;
+  emoji?: string;
+  node?: React.ReactNode;
+  alt?: string;
+  /** position: top/left/right/bottom in % or css units */
+  style: CSSProperties;
+  /** width in px for image stickers, or font-size for emoji */
+  size: number;
+  rotate: number;
+  delay: number;
+  duration: number;
+  /** parallax strength 0-1 */
+  depth: number;
+  /** hide below md */
+  hideOnMobile?: boolean;
+};
+
+const STICKERS: Sticker[] = [
+  {
+    kind: "image",
+    src: stickerButterfly,
+    alt: "Butterfly sticker",
+    style: { top: "2%", left: "6%" },
+    size: 110,
+    rotate: -12,
+    delay: 0,
+    duration: 6,
+    depth: 0.6,
+  },
+  {
+    kind: "image",
+    src: stickerPhone,
+    alt: "Retro flip phone sticker",
+    style: { top: "14%", right: "4%" },
+    size: 130,
+    rotate: 14,
+    delay: 1.2,
+    duration: 7,
+    depth: 0.9,
+  },
+  {
+    kind: "image",
+    src: stickerLaptop,
+    alt: "Laptop sticker",
+    style: { bottom: "6%", left: "3%" },
+    size: 150,
+    rotate: -8,
+    delay: 0.4,
+    duration: 8,
+    depth: 0.5,
+    hideOnMobile: true,
+  },
+  {
+    kind: "image",
+    src: stickerCoffee,
+    alt: "Coffee cup sticker",
+    style: { top: "48%", left: "1%" },
+    size: 90,
+    rotate: 10,
+    delay: 2,
+    duration: 5.5,
+    depth: 0.7,
+    hideOnMobile: true,
+  },
+  {
+    kind: "image",
+    src: stickerHeadphones,
+    alt: "Headphones sticker",
+    style: { bottom: "10%", right: "6%" },
+    size: 130,
+    rotate: -14,
+    delay: 1.6,
+    duration: 6.5,
+    depth: 0.8,
+  },
+  {
+    kind: "image",
+    src: stickerNotebook,
+    alt: "Notebook sticker",
+    style: { top: "52%", right: "2%" },
+    size: 100,
+    rotate: 8,
+    delay: 2.4,
+    duration: 7.5,
+    depth: 0.55,
+    hideOnMobile: true,
+  },
+  // Illustrated / emoji stickers
+  {
+    kind: "emoji",
+    emoji: "💖",
+    style: { top: "8%", left: "42%" },
+    size: 44,
+    rotate: -10,
+    delay: 0.6,
+    duration: 5,
+    depth: 0.4,
+  },
+  {
+    kind: "emoji",
+    emoji: "✨",
+    style: { top: "22%", left: "22%" },
+    size: 38,
+    rotate: 8,
+    delay: 1.4,
+    duration: 4.5,
+    depth: 0.3,
+  },
+  {
+    kind: "emoji",
+    emoji: "⭐",
+    style: { top: "30%", right: "22%" },
+    size: 34,
+    rotate: -6,
+    delay: 2.2,
+    duration: 5.5,
+    depth: 0.35,
+  },
+  {
+    kind: "emoji",
+    emoji: "🦋",
+    style: { bottom: "18%", left: "28%" },
+    size: 36,
+    rotate: 12,
+    delay: 3,
+    duration: 6,
+    depth: 0.45,
+    hideOnMobile: true,
+  },
+  // Illustrated SVG stickers (glass card style)
+  {
+    kind: "node",
+    node: <ChatBubbleSticker />,
+    style: { top: "6%", right: "26%" },
+    size: 0,
+    rotate: 6,
+    delay: 0.8,
+    duration: 6,
+    depth: 0.5,
+  },
+  {
+    kind: "node",
+    node: <StickyNoteSticker />,
+    style: { bottom: "22%", right: "30%" },
+    size: 0,
+    rotate: -8,
+    delay: 1.8,
+    duration: 7,
+    depth: 0.6,
+    hideOnMobile: true,
+  },
+  {
+    kind: "node",
+    node: <BrowserSticker />,
+    style: { bottom: "4%", left: "38%" },
+    size: 0,
+    rotate: 4,
+    delay: 2.6,
+    duration: 6.5,
+    depth: 0.5,
+    hideOnMobile: true,
+  },
+  {
+    kind: "node",
+    node: <CursorSticker />,
+    style: { top: "44%", left: "44%" },
+    size: 0,
+    rotate: -14,
+    delay: 1.1,
+    duration: 5,
+    depth: 0.35,
+  },
+  {
+    kind: "node",
+    node: <PixelHeartSticker />,
+    style: { top: "38%", right: "12%" },
+    size: 0,
+    rotate: 10,
+    delay: 0.3,
+    duration: 5.8,
+    depth: 0.4,
+  },
+  {
+    kind: "node",
+    node: <PaperclipSticker />,
+    style: { top: "18%", left: "10%" },
+    size: 0,
+    rotate: 22,
+    delay: 2.9,
+    duration: 6.2,
+    depth: 0.5,
+    hideOnMobile: true,
+  },
+];
+
 function Hero() {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const [parallax, setParallax] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const el = heroRef.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let raf = 0;
+    const onMove = (e: MouseEvent) => {
+      const rect = el.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => setParallax({ x, y }));
+    };
+    window.addEventListener("mousemove", onMove);
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+
   return (
-    <section className="relative overflow-hidden pt-10 pb-24 sm:pt-16">
-      <div className="blob animate-blob left-[-6rem] top-10 h-80 w-80 bg-[oklch(0.85_0.15_300)]" />
-      <div
-        className="blob animate-blob right-[-4rem] top-40 h-96 w-96 bg-[oklch(0.88_0.13_15)]"
-        style={{ animationDelay: "3s" }}
-      />
-      <div
-        className="blob animate-blob left-1/3 top-[28rem] h-72 w-72 bg-[oklch(0.9_0.14_55)]"
-        style={{ animationDelay: "6s" }}
-      />
+    <section
+      ref={heroRef}
+      className="relative overflow-hidden pt-16 pb-28 sm:pt-24 sm:pb-36"
+    >
+      {/* soft gradient glow */}
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        <div className="blob animate-blob left-[-8rem] top-4 h-96 w-96 bg-[oklch(0.86_0.15_300)]" />
+        <div
+          className="blob animate-blob right-[-6rem] top-32 h-[28rem] w-[28rem] bg-[oklch(0.9_0.13_15)]"
+          style={{ animationDelay: "3s" }}
+        />
+        <div
+          className="blob animate-blob left-1/2 bottom-[-4rem] h-80 w-80 -translate-x-1/2 bg-[oklch(0.92_0.14_55)]"
+          style={{ animationDelay: "6s" }}
+        />
+      </div>
 
-      <div className="relative mx-auto grid w-[min(1200px,calc(100%-2rem))] gap-12 lg:grid-cols-2 lg:gap-16">
-        <div className="animate-rise flex flex-col justify-center">
-          <span className="mb-5 inline-flex w-fit items-center gap-2 rounded-full glass px-4 py-1.5 text-xs font-medium tracking-wide text-foreground/70 uppercase">
-            <span className="h-1.5 w-1.5 rounded-full bg-brand-gradient" />
-            Welcome to Internet Girls
-          </span>
-          <h1 className="text-5xl leading-[1.02] sm:text-6xl lg:text-[4.25rem]">
-            Helping more women{" "}
-            <span className="text-gradient italic">get ahead</span> with AI.
-          </h1>
-          <p className="mt-6 max-w-xl text-lg text-muted-foreground">
-            We've built a space where women learn AI together through free
-            workshops, practical resources, and IRL meetups across Southeast
-            Asia.
-          </p>
+      {/* Stickers layer */}
+      <div className="pointer-events-none absolute inset-0" aria-hidden>
+        {STICKERS.map((s, i) => {
+          const tx = parallax.x * 30 * s.depth;
+          const ty = parallax.y * 30 * s.depth;
+          const base: CSSProperties = {
+            ...s.style,
+            transform: `translate3d(${tx}px, ${ty}px, 0)`,
+            transition: "transform 400ms cubic-bezier(.2,.7,.2,1)",
+          };
+          const inner: CSSProperties = {
+            animation: `sticker-float ${s.duration}s ease-in-out ${s.delay}s infinite`,
+            ["--rot" as string]: `${s.rotate}deg`,
+          };
+          return (
+            <div
+              key={i}
+              className={`absolute ${s.hideOnMobile ? "hidden md:block" : ""}`}
+              style={base}
+            >
+              <div style={inner} className="sticker-inner">
+                {s.kind === "image" && (
+                  <img
+                    src={s.src}
+                    alt={s.alt ?? ""}
+                    width={s.size}
+                    height={s.size}
+                    loading="lazy"
+                    style={{ width: s.size, height: s.size }}
+                    className="drop-shadow-[0_18px_24px_oklch(0.55_0.22_300/0.18)]"
+                  />
+                )}
+                {s.kind === "emoji" && (
+                  <span
+                    style={{ fontSize: s.size, lineHeight: 1 }}
+                    className="block drop-shadow-[0_10px_14px_oklch(0.7_0.18_5/0.25)]"
+                  >
+                    {s.emoji}
+                  </span>
+                )}
+                {s.kind === "node" && s.node}
+              </div>
+            </div>
+          );
+        })}
+      </div>
 
-          <WaitlistCard />
-        </div>
+      {/* Content — centered editorial */}
+      <div className="animate-rise relative mx-auto flex w-[min(880px,calc(100%-2rem))] flex-col items-center text-center">
+        <span className="mb-6 inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-[11px] font-medium tracking-[0.18em] text-foreground/70 uppercase">
+          <span className="h-1.5 w-1.5 rounded-full bg-brand-gradient" />
+          Welcome to Internet Girls
+        </span>
+        <h1 className="font-display text-[3.25rem] font-medium leading-[1.02] tracking-[-0.02em] sm:text-[4.5rem] lg:text-[5.75rem]">
+          Helping more women{" "}
+          <em className="text-gradient font-normal italic">get&nbsp;ahead</em>{" "}
+          with AI.
+        </h1>
+        <p className="mt-7 max-w-xl text-lg text-muted-foreground sm:text-xl">
+          We've built a space where women learn AI together through free
+          workshops, practical resources, and IRL meetups across Southeast Asia.
+        </p>
 
-        <div className="relative flex items-center justify-center">
-          <div className="absolute inset-0 -z-10 rounded-[3rem] bg-soft-gradient blur-2xl opacity-70" />
-          <div className="glass-strong relative aspect-square w-full max-w-lg overflow-hidden rounded-[2.5rem] p-3 animate-float">
-            <img
-              src={heroImg}
-              alt="Illustration of women collaborating with AI tools"
-              width={1200}
-              height={1200}
-              className="h-full w-full rounded-[2rem] object-cover"
-            />
-            <FloatingBadge
-              className="left-4 top-8"
-              emoji="✨"
-              label="Weekly workshops"
-            />
-            <FloatingBadge
-              className="right-4 bottom-8"
-              emoji="🌏"
-              label="SEA community"
-            />
-          </div>
-        </div>
+        <WaitlistCard />
       </div>
     </section>
   );
 }
 
-function FloatingBadge({
+/* ---------------- Illustrated stickers ---------------- */
+
+function StickerCard({
+  children,
   className = "",
-  emoji,
-  label,
 }: {
+  children: React.ReactNode;
   className?: string;
-  emoji: string;
-  label: string;
 }) {
   return (
     <div
-      className={`absolute glass flex items-center gap-2 rounded-full px-3.5 py-2 text-xs font-medium text-foreground shadow-soft ${className}`}
+      className={`glass-strong flex items-center gap-1.5 rounded-2xl px-3 py-2 text-xs font-medium text-foreground shadow-soft ring-1 ring-white/60 ${className}`}
     >
-      <span aria-hidden>{emoji}</span>
-      {label}
+      {children}
     </div>
+  );
+}
+
+function ChatBubbleSticker() {
+  return (
+    <StickerCard>
+      <span className="inline-block h-5 w-5 rounded-full bg-brand-gradient" />
+      <span>Ask AI ✨</span>
+    </StickerCard>
+  );
+}
+
+function StickyNoteSticker() {
+  return (
+    <div className="rotate-[-4deg] rounded-md bg-[oklch(0.94_0.09_95)] px-3 py-2 font-display text-sm italic text-foreground/80 shadow-[0_14px_24px_-10px_oklch(0.5_0.15_60/0.35)] ring-1 ring-black/5">
+      you got this ♡
+    </div>
+  );
+}
+
+function BrowserSticker() {
+  return (
+    <div className="w-40 rounded-xl bg-white p-1.5 shadow-[0_18px_30px_-12px_oklch(0.55_0.2_300/0.3)] ring-1 ring-border/60">
+      <div className="flex items-center gap-1 px-1 pb-1.5">
+        <span className="h-1.5 w-1.5 rounded-full bg-[oklch(0.78_0.17_5)]" />
+        <span className="h-1.5 w-1.5 rounded-full bg-[oklch(0.85_0.15_55)]" />
+        <span className="h-1.5 w-1.5 rounded-full bg-[oklch(0.75_0.18_300)]" />
+      </div>
+      <div className="rounded-md bg-soft-gradient p-3">
+        <div className="h-1.5 w-16 rounded-full bg-white/70" />
+        <div className="mt-1.5 h-1.5 w-24 rounded-full bg-white/60" />
+        <div className="mt-1.5 h-1.5 w-12 rounded-full bg-white/50" />
+      </div>
+    </div>
+  );
+}
+
+function CursorSticker() {
+  return (
+    <div className="flex items-center gap-1.5">
+      <svg width="22" height="22" viewBox="0 0 24 24" className="drop-shadow">
+        <path
+          d="M4 3l6 17 3-7 7-3z"
+          fill="oklch(0.68 0.19 300)"
+          stroke="white"
+          strokeWidth="1.5"
+          strokeLinejoin="round"
+        />
+      </svg>
+      <span className="rounded-md bg-brand-gradient px-2 py-0.5 text-[10px] font-semibold text-white shadow-soft">
+        internet girl
+      </span>
+    </div>
+  );
+}
+
+function PixelHeartSticker() {
+  return (
+    <svg width="42" height="38" viewBox="0 0 11 10" shapeRendering="crispEdges">
+      {/* pixel heart */}
+      {[
+        [1, 1], [2, 1], [3, 1], [7, 1], [8, 1], [9, 1],
+        [0, 2], [4, 2], [6, 2], [10, 2],
+        [0, 3], [10, 3],
+        [0, 4], [10, 4],
+        [1, 5], [9, 5],
+        [2, 6], [8, 6],
+        [3, 7], [7, 7],
+        [4, 8], [6, 8],
+        [5, 9],
+      ].map(([x, y], i) => (
+        <rect
+          key={i}
+          x={x}
+          y={y}
+          width="1"
+          height="1"
+          fill="oklch(0.72 0.2 5)"
+        />
+      ))}
+    </svg>
+  );
+}
+
+function PaperclipSticker() {
+  return (
+    <svg width="34" height="46" viewBox="0 0 24 32" fill="none" className="drop-shadow">
+      <path
+        d="M17 8v14a5 5 0 01-10 0V7a3 3 0 116 0v13a1.5 1.5 0 01-3 0V9"
+        stroke="oklch(0.62 0.18 300)"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </svg>
   );
 }
 
