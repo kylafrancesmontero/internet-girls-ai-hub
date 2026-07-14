@@ -227,7 +227,19 @@ function Hero() {
       {/* Content — centered editorial */}
       <div className="animate-rise relative mx-auto flex w-[min(880px,calc(100%-2rem))] flex-col items-center text-center">
         <span className="mb-6 inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-[11px] font-medium tracking-[0.18em] text-foreground/70 uppercase">
-          <span className="h-1.5 w-1.5 rounded-full bg-brand-gradient" />
+          <svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true" className="shrink-0">
+            <defs>
+              <linearGradient id="eyebrowStar" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stopColor="oklch(0.72 0.18 300)" />
+                <stop offset="55%" stopColor="oklch(0.78 0.17 5)" />
+                <stop offset="100%" stopColor="oklch(0.84 0.15 55)" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              fill="url(#eyebrowStar)"
+            />
+          </svg>
           Welcome to Internet Girls
         </span>
         <h1 className="font-display text-[3.25rem] font-medium leading-[1.02] tracking-[-0.02em] sm:text-[4.5rem] lg:text-[5.75rem]">
