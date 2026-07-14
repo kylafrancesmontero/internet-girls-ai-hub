@@ -451,7 +451,22 @@ function WhatYoullLearn() {
 
         <div className="mt-10 flex justify-center">
           <span className="inline-flex items-center gap-2 rounded-full glass px-4 py-2 text-[11px] font-medium tracking-wide text-foreground/80">
-            <span aria-hidden>🚀</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="shrink-0">
+              <path
+                d="M12 2c0 0-5 4-5 10v3l-3 3 3-1 2 4 2-6 4-1c1 0 2-1 2-2s-1-2-2-2h-4c-1 0-2-1-2-2s1-2 2-2h4c1 0 2-1 2-2s-1-2-2-2l-4-1"
+                stroke="url(#rocketGradient)"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <defs>
+                <linearGradient id="rocketGradient" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stopColor="oklch(0.72 0.18 300)" />
+                  <stop offset="55%" stopColor="oklch(0.78 0.17 5)" />
+                  <stop offset="100%" stopColor="oklch(0.84 0.15 55)" />
+                </linearGradient>
+              </defs>
+            </svg>
             First Foundation Batch • Starts 2nd Week of August • Live + Prerecorded
           </span>
         </div>
@@ -459,7 +474,7 @@ function WhatYoullLearn() {
         <div className="relative mt-12">
           <div
             className="scrollbar-hidden flex snap-x snap-mandatory gap-5 overflow-x-auto pb-8 pt-2"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none", scrollPaddingInline: "1rem" }}
           >
             {LEARN_CARDS.map((card, i) => (
               <article
