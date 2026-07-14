@@ -693,24 +693,32 @@ function Community() {
             <span className="text-gradient italic">learning with us.</span>
           </h2>
           <p className="mt-5 text-lg text-muted-foreground">
-            From Ho Chi Minh City to Hanoi — meet the women showing up, asking
-            the questions, and shipping side projects together.
+            Internet Girls started with our very first in-person AI meetup in
+            Hoi An, Vietnam. Since then, we're growing a community of women
+            learning AI together across Southeast Asia through workshops,
+            meetups, and practical learning experiences.
           </p>
-          <div className="mt-8 grid grid-cols-3 gap-3">
-            <Stat value="500+" label="Community members" />
-            <Stat value="15+" label="Workshops hosted" />
-            <Stat value="4" label="Cities in SEA" />
-          </div>
+          <a
+            href="#partners"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById("partners")?.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="mt-8 inline-flex items-center gap-2 rounded-full bg-brand-gradient px-6 py-3 text-sm font-semibold text-white shadow-soft transition-transform hover:scale-[1.03]"
+          >
+            Get Involved
+            <span aria-hidden>→</span>
+          </a>
         </div>
 
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-4">
-            <GalleryImg src={workshop1} alt="Workshop attendees laughing together" ratio="aspect-[4/5]" />
-            <GalleryImg src={workshop2} alt="Women collaborating on laptops" ratio="aspect-square" />
+            <GalleryImg src={workshop1} alt="Kyla with speaker at an Internet Girls meetup in Hoi An" ratio="aspect-[4/5]" />
+            <GalleryImg src={workshop2} alt="Attendees at an AI workshop in Hoi An" ratio="aspect-square" />
           </div>
           <div className="space-y-4 pt-10">
-            <GalleryImg src={workshop3} alt="Speaker presenting at meetup" ratio="aspect-square" />
-            <GalleryImg src={workshop4} alt="Hands typing on a laptop" ratio="aspect-[4/5]" />
+            <GalleryImg src={workshop3} alt="Women collaborating on laptops during a meetup" ratio="aspect-square" />
+            <GalleryImg src={workshop4} alt="Community members learning together" ratio="aspect-[4/5]" />
           </div>
         </div>
       </div>
