@@ -1,11 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type CSSProperties, type FormEvent } from "react";
-import stickerPhone from "@/assets/sticker-phone.png";
-import stickerLaptop from "@/assets/sticker-laptop.png";
-import stickerCoffee from "@/assets/sticker-coffee.png";
-import stickerButterfly from "@/assets/sticker-butterfly.png";
-import stickerHeadphones from "@/assets/sticker-headphones.png";
-import stickerNotebook from "@/assets/sticker-notebook.png";
+import stickerFlipPhone from "@/assets/sticker-flip-phone.png";
+import stickerImac from "@/assets/sticker-imac.png";
+import stickerIpod from "@/assets/sticker-ipod.png";
 import founderAsset from "@/assets/founder-kyla.jpg.asset.json";
 import workshop1Asset from "@/assets/community-1.jpg.asset.json";
 import workshop2Asset from "@/assets/community-2.jpg.asset.json";
