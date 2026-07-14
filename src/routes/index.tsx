@@ -704,7 +704,7 @@ function Community() {
           >
             Get Involved
             <span aria-hidden>→</span>
-          </a>
+          </Link>
         </div>
 
         <div className="grid grid-cols-2 gap-4">
