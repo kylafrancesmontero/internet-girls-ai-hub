@@ -162,7 +162,7 @@ function Hero() {
   return (
     <section
       ref={heroRef}
-      className="relative overflow-hidden pt-16 pb-28 sm:pt-24 sm:pb-36"
+      className="relative overflow-hidden pt-24 pb-36 sm:pt-32 sm:pb-44 lg:pt-40 lg:pb-56"
     >
       {/* soft gradient glow */}
       <div className="pointer-events-none absolute inset-0 -z-10">
