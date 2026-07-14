@@ -260,56 +260,6 @@ function Hero() {
 
 /* ---------------- Illustrated stickers ---------------- */
 
-function StickerCard({
-  children,
-  className = "",
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <div
-      className={`glass-strong flex items-center gap-1.5 rounded-2xl px-3 py-2 text-xs font-medium text-foreground shadow-soft ring-1 ring-white/60 ${className}`}
-    >
-      {children}
-    </div>
-  );
-}
-
-function ChatBubbleSticker() {
-  return (
-    <StickerCard>
-      <span className="inline-block h-5 w-5 rounded-full bg-brand-gradient" />
-      <span>Ask AI ✨</span>
-    </StickerCard>
-  );
-}
-
-function StickyNoteSticker() {
-  return (
-    <div className="rotate-[-4deg] rounded-md bg-[oklch(0.94_0.09_95)] px-3 py-2 font-display text-sm italic text-foreground/80 shadow-[0_14px_24px_-10px_oklch(0.5_0.15_60/0.35)] ring-1 ring-black/5">
-      you got this ♡
-    </div>
-  );
-}
-
-function BrowserSticker() {
-  return (
-    <div className="w-40 rounded-xl bg-white p-1.5 shadow-[0_18px_30px_-12px_oklch(0.55_0.2_300/0.3)] ring-1 ring-border/60">
-      <div className="flex items-center gap-1 px-1 pb-1.5">
-        <span className="h-1.5 w-1.5 rounded-full bg-[oklch(0.78_0.17_5)]" />
-        <span className="h-1.5 w-1.5 rounded-full bg-[oklch(0.85_0.15_55)]" />
-        <span className="h-1.5 w-1.5 rounded-full bg-[oklch(0.75_0.18_300)]" />
-      </div>
-      <div className="rounded-md bg-soft-gradient p-3">
-        <div className="h-1.5 w-16 rounded-full bg-white/70" />
-        <div className="mt-1.5 h-1.5 w-24 rounded-full bg-white/60" />
-        <div className="mt-1.5 h-1.5 w-12 rounded-full bg-white/50" />
-      </div>
-    </div>
-  );
-}
-
 function CursorSticker() {
   return (
     <div className="flex items-center gap-1.5">
@@ -357,15 +307,23 @@ function PixelHeartSticker() {
   );
 }
 
-function PaperclipSticker() {
+function SparkleStarSticker() {
   return (
-    <svg width="34" height="46" viewBox="0 0 24 32" fill="none" className="drop-shadow">
+    <svg width="44" height="44" viewBox="0 0 24 24" className="drop-shadow">
+      <defs>
+        <linearGradient id="sparkleStar" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="oklch(0.72 0.18 300)" />
+          <stop offset="55%" stopColor="oklch(0.78 0.17 5)" />
+          <stop offset="100%" stopColor="oklch(0.84 0.15 55)" />
+        </linearGradient>
+      </defs>
       <path
-        d="M17 8v14a5 5 0 01-10 0V7a3 3 0 116 0v13a1.5 1.5 0 01-3 0V9"
-        stroke="oklch(0.62 0.18 300)"
-        strokeWidth="2"
-        strokeLinecap="round"
+        d="M12 2l1.5 5.5L19 9l-5 1.5L14 17l-2-4.5L10 17l-0.5-6.5L4 9l5.5-1.5L12 2z"
+        fill="url(#sparkleStar)"
       />
+      <circle cx="5" cy="6" r="1" fill="oklch(0.78 0.17 5)" />
+      <circle cx="20" cy="10" r="0.8" fill="oklch(0.72 0.18 300)" />
+      <circle cx="7" cy="20" r="0.8" fill="oklch(0.84 0.15 55)" />
     </svg>
   );
 }
