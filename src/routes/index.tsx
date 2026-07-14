@@ -1,11 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type CSSProperties, type FormEvent } from "react";
-import stickerPhone from "@/assets/sticker-phone.png";
-import stickerLaptop from "@/assets/sticker-laptop.png";
-import stickerCoffee from "@/assets/sticker-coffee.png";
-import stickerButterfly from "@/assets/sticker-butterfly.png";
-import stickerHeadphones from "@/assets/sticker-headphones.png";
-import stickerNotebook from "@/assets/sticker-notebook.png";
+import stickerFlipPhone from "@/assets/sticker-flip-phone.png";
+import stickerImac from "@/assets/sticker-imac.png";
+import stickerIpod from "@/assets/sticker-ipod.png";
 import founderAsset from "@/assets/founder-kyla.jpg.asset.json";
 import workshop1Asset from "@/assets/community-1.jpg.asset.json";
 import workshop2Asset from "@/assets/community-2.jpg.asset.json";
@@ -66,179 +63,75 @@ type Sticker = {
 };
 
 const STICKERS: Sticker[] = [
+  // Large nostalgic tech stickers
   {
     kind: "image",
-    src: stickerButterfly,
-    alt: "Butterfly sticker",
-    style: { top: "2%", left: "6%" },
-    size: 110,
-    rotate: -12,
+    src: stickerFlipPhone,
+    alt: "Pastel pink flip phone sticker",
+    style: { top: "6%", left: "5%" },
+    size: 170,
+    rotate: -10,
     delay: 0,
-    duration: 6,
+    duration: 6.5,
     depth: 0.6,
-  },
-  {
-    kind: "image",
-    src: stickerPhone,
-    alt: "Retro flip phone sticker",
-    style: { top: "14%", right: "4%" },
-    size: 130,
-    rotate: 14,
-    delay: 1.2,
-    duration: 7,
-    depth: 0.9,
-  },
-  {
-    kind: "image",
-    src: stickerLaptop,
-    alt: "Laptop sticker",
-    style: { bottom: "6%", left: "3%" },
-    size: 150,
-    rotate: -8,
-    delay: 0.4,
-    duration: 8,
-    depth: 0.5,
     hideOnMobile: true,
   },
   {
     kind: "image",
-    src: stickerCoffee,
-    alt: "Coffee cup sticker",
-    style: { top: "48%", left: "1%" },
-    size: 90,
-    rotate: 10,
-    delay: 2,
-    duration: 5.5,
+    src: stickerImac,
+    alt: "Pink retro iMac computer sticker",
+    style: { top: "10%", right: "3%" },
+    size: 220,
+    rotate: 8,
+    delay: 1.2,
+    duration: 7.5,
     depth: 0.7,
     hideOnMobile: true,
   },
   {
     kind: "image",
-    src: stickerHeadphones,
-    alt: "Headphones sticker",
-    style: { bottom: "10%", right: "6%" },
-    size: 130,
-    rotate: -14,
-    delay: 1.6,
-    duration: 6.5,
-    depth: 0.8,
-  },
-  {
-    kind: "image",
-    src: stickerNotebook,
-    alt: "Notebook sticker",
-    style: { top: "52%", right: "2%" },
-    size: 100,
-    rotate: 8,
-    delay: 2.4,
-    duration: 7.5,
-    depth: 0.55,
-    hideOnMobile: true,
-  },
-  // Illustrated / emoji stickers
-  {
-    kind: "emoji",
-    emoji: "💖",
-    style: { top: "8%", left: "42%" },
-    size: 44,
-    rotate: -10,
-    delay: 0.6,
-    duration: 5,
-    depth: 0.4,
-  },
-  {
-    kind: "emoji",
-    emoji: "✨",
-    style: { top: "22%", left: "22%" },
-    size: 38,
-    rotate: 8,
-    delay: 1.4,
-    duration: 4.5,
-    depth: 0.3,
-  },
-  {
-    kind: "emoji",
-    emoji: "⭐",
-    style: { top: "30%", right: "22%" },
-    size: 34,
+    src: stickerIpod,
+    alt: "Classic white iPod with earphones sticker",
+    style: { bottom: "8%", left: "7%" },
+    size: 170,
     rotate: -6,
-    delay: 2.2,
-    duration: 5.5,
-    depth: 0.35,
-  },
-  {
-    kind: "emoji",
-    emoji: "🦋",
-    style: { bottom: "18%", left: "28%" },
-    size: 36,
-    rotate: 12,
-    delay: 3,
-    duration: 6,
-    depth: 0.45,
+    delay: 0.6,
+    duration: 8,
+    depth: 0.5,
     hideOnMobile: true,
   },
-  // Illustrated SVG stickers (glass card style)
+  // Small accent stickers
   {
     kind: "node",
-    node: <ChatBubbleSticker />,
-    style: { top: "6%", right: "26%" },
+    node: <PixelHeartSticker />,
+    style: { bottom: "22%", right: "10%" },
     size: 0,
-    rotate: 6,
-    delay: 0.8,
-    duration: 6,
-    depth: 0.5,
-  },
-  {
-    kind: "node",
-    node: <StickyNoteSticker />,
-    style: { bottom: "22%", right: "30%" },
-    size: 0,
-    rotate: -8,
-    delay: 1.8,
-    duration: 7,
-    depth: 0.6,
-    hideOnMobile: true,
-  },
-  {
-    kind: "node",
-    node: <BrowserSticker />,
-    style: { bottom: "4%", left: "38%" },
-    size: 0,
-    rotate: 4,
-    delay: 2.6,
-    duration: 6.5,
-    depth: 0.5,
+    rotate: 8,
+    delay: 0.3,
+    duration: 5.8,
+    depth: 0.4,
     hideOnMobile: true,
   },
   {
     kind: "node",
     node: <CursorSticker />,
-    style: { top: "44%", left: "44%" },
+    style: { top: "40%", left: "11%" },
     size: 0,
     rotate: -14,
     delay: 1.1,
-    duration: 5,
+    duration: 5.5,
     depth: 0.35,
+    hideOnMobile: true,
   },
   {
     kind: "node",
-    node: <PixelHeartSticker />,
-    style: { top: "38%", right: "12%" },
+    node: <SparkleStarSticker />,
+    style: { top: "20%", right: "18%" },
     size: 0,
-    rotate: 10,
-    delay: 0.3,
-    duration: 5.8,
-    depth: 0.4,
-  },
-  {
-    kind: "node",
-    node: <PaperclipSticker />,
-    style: { top: "18%", left: "10%" },
-    size: 0,
-    rotate: 22,
-    delay: 2.9,
-    duration: 6.2,
-    depth: 0.5,
+    rotate: -6,
+    delay: 2.2,
+    duration: 6,
+    depth: 0.45,
     hideOnMobile: true,
   },
 ];
@@ -269,7 +162,7 @@ function Hero() {
   return (
     <section
       ref={heroRef}
-      className="relative overflow-hidden pt-16 pb-28 sm:pt-24 sm:pb-36"
+      className="relative overflow-hidden pt-24 pb-36 sm:pt-32 sm:pb-44 lg:pt-40 lg:pb-56"
     >
       {/* soft gradient glow */}
       <div className="pointer-events-none absolute inset-0 -z-10">
@@ -334,7 +227,19 @@ function Hero() {
       {/* Content — centered editorial */}
       <div className="animate-rise relative mx-auto flex w-[min(880px,calc(100%-2rem))] flex-col items-center text-center">
         <span className="mb-6 inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-[11px] font-medium tracking-[0.18em] text-foreground/70 uppercase">
-          <span className="h-1.5 w-1.5 rounded-full bg-brand-gradient" />
+          <svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true" className="shrink-0">
+            <defs>
+              <linearGradient id="eyebrowStar" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stopColor="oklch(0.72 0.18 300)" />
+                <stop offset="55%" stopColor="oklch(0.78 0.17 5)" />
+                <stop offset="100%" stopColor="oklch(0.84 0.15 55)" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              fill="url(#eyebrowStar)"
+            />
+          </svg>
           Welcome to Internet Girls
         </span>
         <h1 className="font-display text-[3.25rem] font-medium leading-[1.02] tracking-[-0.02em] sm:text-[4.5rem] lg:text-[5.75rem]">
@@ -354,56 +259,6 @@ function Hero() {
 }
 
 /* ---------------- Illustrated stickers ---------------- */
-
-function StickerCard({
-  children,
-  className = "",
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <div
-      className={`glass-strong flex items-center gap-1.5 rounded-2xl px-3 py-2 text-xs font-medium text-foreground shadow-soft ring-1 ring-white/60 ${className}`}
-    >
-      {children}
-    </div>
-  );
-}
-
-function ChatBubbleSticker() {
-  return (
-    <StickerCard>
-      <span className="inline-block h-5 w-5 rounded-full bg-brand-gradient" />
-      <span>Ask AI ✨</span>
-    </StickerCard>
-  );
-}
-
-function StickyNoteSticker() {
-  return (
-    <div className="rotate-[-4deg] rounded-md bg-[oklch(0.94_0.09_95)] px-3 py-2 font-display text-sm italic text-foreground/80 shadow-[0_14px_24px_-10px_oklch(0.5_0.15_60/0.35)] ring-1 ring-black/5">
-      you got this ♡
-    </div>
-  );
-}
-
-function BrowserSticker() {
-  return (
-    <div className="w-40 rounded-xl bg-white p-1.5 shadow-[0_18px_30px_-12px_oklch(0.55_0.2_300/0.3)] ring-1 ring-border/60">
-      <div className="flex items-center gap-1 px-1 pb-1.5">
-        <span className="h-1.5 w-1.5 rounded-full bg-[oklch(0.78_0.17_5)]" />
-        <span className="h-1.5 w-1.5 rounded-full bg-[oklch(0.85_0.15_55)]" />
-        <span className="h-1.5 w-1.5 rounded-full bg-[oklch(0.75_0.18_300)]" />
-      </div>
-      <div className="rounded-md bg-soft-gradient p-3">
-        <div className="h-1.5 w-16 rounded-full bg-white/70" />
-        <div className="mt-1.5 h-1.5 w-24 rounded-full bg-white/60" />
-        <div className="mt-1.5 h-1.5 w-12 rounded-full bg-white/50" />
-      </div>
-    </div>
-  );
-}
 
 function CursorSticker() {
   return (
@@ -452,15 +307,23 @@ function PixelHeartSticker() {
   );
 }
 
-function PaperclipSticker() {
+function SparkleStarSticker() {
   return (
-    <svg width="34" height="46" viewBox="0 0 24 32" fill="none" className="drop-shadow">
+    <svg width="44" height="44" viewBox="0 0 24 24" className="drop-shadow">
+      <defs>
+        <linearGradient id="sparkleStar" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="oklch(0.72 0.18 300)" />
+          <stop offset="55%" stopColor="oklch(0.78 0.17 5)" />
+          <stop offset="100%" stopColor="oklch(0.84 0.15 55)" />
+        </linearGradient>
+      </defs>
       <path
-        d="M17 8v14a5 5 0 01-10 0V7a3 3 0 116 0v13a1.5 1.5 0 01-3 0V9"
-        stroke="oklch(0.62 0.18 300)"
-        strokeWidth="2"
-        strokeLinecap="round"
+        d="M12 2l1.5 5.5L19 9l-5 1.5L14 17l-2-4.5L10 17l-0.5-6.5L4 9l5.5-1.5L12 2z"
+        fill="url(#sparkleStar)"
       />
+      <circle cx="5" cy="6" r="1" fill="oklch(0.78 0.17 5)" />
+      <circle cx="20" cy="10" r="0.8" fill="oklch(0.72 0.18 300)" />
+      <circle cx="7" cy="20" r="0.8" fill="oklch(0.84 0.15 55)" />
     </svg>
   );
 }
