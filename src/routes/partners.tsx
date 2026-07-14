@@ -57,7 +57,7 @@ function PartnersPage() {
 
 function PartnersHero() {
   return (
-    <section className="relative overflow-hidden pt-16 pb-14">
+    <section className="relative overflow-hidden pt-32 sm:pt-40 pb-14">
       <div className="blob animate-blob left-[-4rem] top-6 h-72 w-72 bg-[oklch(0.85_0.15_300)]" />
       <div
         className="blob animate-blob right-[-2rem] top-20 h-80 w-80 bg-[oklch(0.88_0.14_15)]"
