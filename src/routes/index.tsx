@@ -628,26 +628,32 @@ function WhyExists() {
             Why <span className="text-gradient italic">Internet Girls</span>{" "}
             exists
           </h2>
+          <div class="mt-6 space-y-5 text-lg leading-relaxed text-foreground/80"></div>
           <div className="mt-6 space-y-5 text-lg leading-relaxed text-foreground/80">
             <p>
-              I kept walking into rooms about AI and noticing the same thing —
-              women weren't at the table. Not because we didn't care, but
-              because nobody was building a space that felt like it was made
-              for us.
+              Our founder, Kyla, believes AI will become as essential as using
+              the internet or email.
             </p>
             <p>
-              So we started small. A workshop in a café. Then a bigger one. Now
-              a growing community of women across Southeast Asia teaching each
-              other how to use, adapt to, and build with AI — with zero gatekeeping.
+              As she explored the rapidly changing world of AI, she kept
+              noticing the same pattern. AI was everywhere, but many women
+              around her felt overwhelmed by the endless stream of tools,
+              technical jargon, and conflicting advice. The curiosity was
+              there, what was missing was a welcoming place to start.
+            </p>
+            <p>
+              She didn't think the answer was another course. She believed the
+              answer was a community: a place where women could learn together,
+              ask questions freely, and build confidence at their own pace.
             </p>
             <p className="font-medium text-foreground">
-              This is the room I wish I walked into. Welcome in.
+              That's how Internet Girls began.
             </p>
           </div>
           <div className="mt-8 flex items-center gap-3">
             <div className="h-10 w-10 rounded-full bg-brand-gradient" />
             <div>
-              <p className="font-semibold">Founder, Internet Girls</p>
+              <p className="font-semibold">Kyla · Founder, Internet Girls</p>
               <p className="text-sm text-muted-foreground">
                 Building the space we needed.
               </p>
@@ -656,12 +662,10 @@ function WhyExists() {
         </div>
 
         <div className="relative flex items-center justify-center">
-          <div className="blob left-6 top-6 h-60 w-60 bg-[oklch(0.88_0.14_300)] opacity-70" />
-          <div className="blob right-6 bottom-4 h-64 w-64 bg-[oklch(0.9_0.13_20)] opacity-70" />
-          <div className="glass-strong relative overflow-hidden rounded-[2.5rem] p-3">
+          <div className="relative rounded-[2.5rem] p-3 shadow-soft" style={{ background: "linear-gradient(135deg, oklch(0.88 0.14 300), oklch(0.9 0.13 20), oklch(0.92 0.14 55))" }}>
             <img
               src={founderImg}
-              alt="Portrait of the founder of Internet Girls"
+              alt="Kyla, founder of Internet Girls"
               width={900}
               height={1100}
               loading="lazy"
