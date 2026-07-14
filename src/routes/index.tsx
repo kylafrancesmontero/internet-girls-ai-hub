@@ -698,12 +698,8 @@ function Community() {
             learning AI together across Southeast Asia through workshops,
             meetups, and practical learning experiences.
           </p>
-          <a
-            href="#partners"
-            onClick={(e) => {
-              e.preventDefault();
-              document.getElementById("partners")?.scrollIntoView({ behavior: "smooth" });
-            }}
+          <Link
+            to="/partners"
             className="mt-8 inline-flex items-center gap-2 rounded-full bg-brand-gradient px-6 py-3 text-sm font-semibold text-white shadow-soft transition-transform hover:scale-[1.03]"
           >
             Get Involved
