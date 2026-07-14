@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type CSSProperties, type FormEvent } from "react";
 import stickerPhone from "@/assets/sticker-phone.png";
 import stickerLaptop from "@/assets/sticker-laptop.png";
