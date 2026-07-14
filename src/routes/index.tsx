@@ -395,29 +395,42 @@ const LEARN_CARDS = [
   {
     tag: "Specialist",
     tagBg: "oklch(0.94 0.06 5)",
-    question: "How do I use AI in my job?",
-    sections: [
-      {
-        title: "Choose your track",
-        items: [
-          "AI for Marketing",
-          "AI for Admin & Operations",
-          "AI for Content Creators",
-          "AI for Entrepreneurs",
-        ],
-      },
-    ],
+    question: "AI for Marketing",
+    status: "Coming Soon",
+    description: "Role-specific AI skills for modern marketers.",
+    meta: "Live + Prerecorded",
+  },
+  {
+    tag: "Specialist",
+    tagBg: "oklch(0.94 0.06 55)",
+    question: "AI for Admin & Operations",
+    status: "Coming Soon",
+    description: "Use AI to streamline admin work and operations.",
+    meta: "Live + Prerecorded",
+  },
+  {
+    tag: "Specialist",
+    tagBg: "oklch(0.94 0.06 300)",
+    question: "AI for Content Creators",
+    status: "Coming Soon",
+    description: "Create faster with AI while maintaining your unique voice.",
+    meta: "Live + Prerecorded",
+  },
+  {
+    tag: "Specialist",
+    tagBg: "oklch(0.94 0.06 5)",
+    question: "AI for Entrepreneurs",
+    status: "Coming Soon",
+    description: "Learn how to use AI to grow and run your business.",
+    meta: "Live + Prerecorded",
   },
   {
     tag: "AI Builder",
     tagBg: "oklch(0.94 0.06 55)",
-    question: "How do I build with AI?",
-    sections: [
-      {
-        title: "Start shipping",
-        items: ["Building Apps", "Building AI Agents", "AI Workflows"],
-      },
-    ],
+    question: "AI Builder",
+    status: "Coming Soon",
+    description: "Build AI apps, AI agents, and AI workflows without coding.",
+    meta: "Live + Prerecorded",
   },
 ];
 
@@ -436,41 +449,84 @@ function WhatYoullLearn() {
           </p>
         </div>
 
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
-          {LEARN_CARDS.map((card, i) => (
-            <article
-              key={card.tag}
-              className="group relative flex flex-col rounded-3xl bg-card p-7 shadow-soft ring-1 ring-border/60 transition-transform hover:-translate-y-1"
-            >
-              <span
-                className="w-fit rounded-full px-3 py-1 text-xs font-semibold text-foreground/80"
-                style={{ background: card.tagBg }}
+        <div className="mt-10 flex justify-center">
+          <span className="inline-flex items-center gap-2 rounded-full glass px-4 py-2 text-[11px] font-medium tracking-wide text-foreground/80">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="shrink-0">
+              <path
+                d="M12 2.5c-3 3-4 7-4 10v2l-3 3 4-1 2 5 2-5 4 1-3-3v-2c0-3-1-7-4-10z"
+                fill="url(#rocketGradient)"
+              />
+              <circle cx="12" cy="12" r="1.5" fill="white" />
+              <defs>
+                <linearGradient id="rocketGradient" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stopColor="oklch(0.72 0.18 300)" />
+                  <stop offset="55%" stopColor="oklch(0.78 0.17 5)" />
+                  <stop offset="100%" stopColor="oklch(0.84 0.15 55)" />
+                </linearGradient>
+              </defs>
+            </svg>
+            First Foundation Batch • Starts 2nd Week of August • Live + Prerecorded
+          </span>
+        </div>
+
+        <div className="relative mt-12">
+          <div
+            className="scrollbar-hidden flex snap-x snap-mandatory gap-5 overflow-x-auto pb-8 pt-2"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none", scrollPaddingInline: "1rem" }}
+          >
+            {LEARN_CARDS.map((card, i) => (
+              <article
+                key={card.question}
+                className={`relative flex w-[min(85vw,320px)] flex-shrink-0 snap-start flex-col rounded-3xl bg-card p-6 shadow-soft ring-1 ring-border/60 sm:w-[340px] sm:p-7 ${
+                  i === 0 ? "ring-2 ring-primary/20" : ""
+                }`}
               >
-                0{i + 1} · {card.tag}
-              </span>
-              <h3 className="mt-5 text-2xl leading-tight">{card.question}</h3>
-              <div className="mt-6 flex flex-1 flex-col gap-5">
-                {card.sections.map((s) => (
-                  <div key={s.title}>
-                    <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                      {s.title}
-                    </p>
-                    <ul className="space-y-2">
-                      {s.items.map((it) => (
-                        <li
-                          key={it}
-                          className="flex items-start gap-2 text-sm text-foreground/85"
-                        >
-                          <span className="mt-2 inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-brand-gradient" />
-                          {it}
-                        </li>
-                      ))}
-                    </ul>
+                <span
+                  className="w-fit rounded-full px-3 py-1 text-xs font-semibold text-foreground/80"
+                  style={{ background: card.tagBg }}
+                >
+                  {i === 0 ? "01 · Foundation" : `0${i + 1} · ${card.tag}`}
+                </span>
+                <h3 className="mt-4 text-2xl leading-tight">{card.question}</h3>
+
+                {i === 0 ? (
+                  <div className="mt-5 flex flex-1 flex-col gap-4">
+                    {card.sections?.map((s) => (
+                      <div key={s.title}>
+                        <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                          {s.title}
+                        </p>
+                        <ul className="space-y-1.5">
+                          {s.items.map((it) => (
+                            <li
+                              key={it}
+                              className="flex items-start gap-2 text-sm text-foreground/85"
+                            >
+                              <span className="mt-1.5 inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-brand-gradient" />
+                              {it}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </article>
-          ))}
+                ) : (
+                  <div className="mt-5 flex flex-1 flex-col gap-3">
+                    <span className="w-fit rounded-full bg-gradient-to-r from-[oklch(0.88_0.14_300)] via-[oklch(0.9_0.13_20)] to-[oklch(0.92_0.14_55)] px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-foreground/80">
+                      {card.status}
+                    </span>
+                    <p className="text-sm leading-relaxed text-foreground/80">
+                      {card.description}
+                    </p>
+                    <p className="mt-auto pt-4 text-xs font-medium text-muted-foreground">
+                      {card.meta}
+                    </p>
+                  </div>
+                )}
+              </article>
+            ))}
+          </div>
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[var(--color-background)] to-transparent sm:w-32" />
         </div>
       </div>
     </section>
