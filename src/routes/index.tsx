@@ -453,12 +453,10 @@ function WhatYoullLearn() {
           <span className="inline-flex items-center gap-2 rounded-full glass px-4 py-2 text-[11px] font-medium tracking-wide text-foreground/80">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="shrink-0">
               <path
-                d="M12 2c0 0-5 4-5 10v3l-3 3 3-1 2 4 2-6 4-1c1 0 2-1 2-2s-1-2-2-2h-4c-1 0-2-1-2-2s1-2 2-2h4c1 0 2-1 2-2s-1-2-2-2l-4-1"
-                stroke="url(#rocketGradient)"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+                d="M12 2.5c-3 3-4 7-4 10v2l-3 3 4-1 2 5 2-5 4 1-3-3v-2c0-3-1-7-4-10z"
+                fill="url(#rocketGradient)"
               />
+              <circle cx="12" cy="12" r="1.5" fill="white" />
               <defs>
                 <linearGradient id="rocketGradient" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
                   <stop offset="0%" stopColor="oklch(0.72 0.18 300)" />
