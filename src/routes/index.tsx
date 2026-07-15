@@ -408,67 +408,59 @@ const LEARN_CARDS = [
   {
     tag: "Foundation",
     tagBg: "oklch(0.94 0.06 300)",
-    question: "How do I confidently use AI?",
-    sections: [
-      {
-        title: "Week 1",
-        items: [
-          "What is AI & Meet the Players",
-          "Critical Thinking & the 4Ds",
-          "Prompting",
-          "Productivity",
-        ],
-      },
-      {
-        title: "Week 2",
-        items: [
-          "Research & Analysis",
-          "Writing & Communication",
-          "Data Privacy & Responsible AI",
-          "AI Best Practices",
-        ],
-      },
+    badge: "Free",
+    title: "Getting Started",
+    bullets: [
+      "The New Era of AI",
+      "Thinking clearly with AI",
+      "Power Prompting",
+      "Everyday Productivity with AI",
     ],
+    meta: "Live • recorded replay",
   },
   {
-    tag: "Specialist",
+    tag: "Foundation",
     tagBg: "oklch(0.94 0.06 5)",
-    question: "AI for Marketing",
-    status: "Coming Soon",
-    description: "Role-specific AI skills for modern marketers.",
-    meta: "Live + Prerecorded",
+    title: "Putting AI to Work",
+    bullets: [
+      "Research Faster with AI",
+      "Writing & Communication",
+      "Plan & Organize with AI",
+      "Data Privacy & Responsible AI",
+    ],
+    meta: "Live • recorded replay",
   },
   {
     tag: "Specialist",
     tagBg: "oklch(0.94 0.06 55)",
-    question: "AI for Admin & Operations",
-    status: "Coming Soon",
-    description: "Use AI to streamline admin work and operations.",
-    meta: "Live + Prerecorded",
+    title: "AI for Marketing",
+    status: "COMING SOON",
+    description: "Role-specific AI skills for modern marketers,",
+    meta: "Live • recorded replay",
   },
   {
     tag: "Specialist",
     tagBg: "oklch(0.94 0.06 300)",
-    question: "AI for Content Creators",
-    status: "Coming Soon",
-    description: "Create faster with AI while maintaining your unique voice.",
-    meta: "Live + Prerecorded",
+    title: "AI for Creators",
+    status: "COMING SOON",
+    description: "Create faster and stand out with your unique voice.",
+    meta: "Live • recorded replay",
   },
   {
     tag: "Specialist",
     tagBg: "oklch(0.94 0.06 5)",
-    question: "AI for Entrepreneurs",
-    status: "Coming Soon",
+    title: "AI for Entrepreneurs",
+    status: "COMING SOON",
     description: "Learn how to use AI to grow and run your business.",
-    meta: "Live + Prerecorded",
+    meta: "Live • recorded replay",
   },
   {
     tag: "AI Builder",
     tagBg: "oklch(0.94 0.06 55)",
-    question: "AI Builder",
-    status: "Coming Soon",
+    title: "AI Builder",
+    status: "COMING SOON",
     description: "Build AI apps, AI agents, and AI workflows without coding.",
-    meta: "Live + Prerecorded",
+    meta: "Live • recorded replay",
   },
 ];
 
@@ -488,14 +480,8 @@ function WhatYoullLearn() {
         </div>
 
         <div className="mt-10 flex justify-center">
-          <span className="inline-flex items-center gap-2 rounded-lg bg-brand-gradient px-4 py-2 text-[11px] font-medium tracking-wide text-white shadow-soft">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="shrink-0">
-              <path
-                d="M12 2.5c-3 3-4 7-4 10v2l-3 3 4-1 2 5 2-5 4 1-3-3v-2c0-3-1-7-4-10z"
-                fill="currentColor"
-              />
-            </svg>
-            First Foundation Batch • Starts 2nd Week of August • Live + Prerecorded
+          <span className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-[12px] font-medium tracking-wide text-foreground/80 shadow-soft">
+            First Founding Batch • Starts 15 August • Weekly live sessions • <span className="font-semibold text-purple-600">Free</span>
           </span>
         </div>
 
@@ -503,49 +489,53 @@ function WhatYoullLearn() {
           <Carousel opts={{ align: "start" }} className="w-full">
             <CarouselContent className="-ml-5 py-2">
               {LEARN_CARDS.map((card, i) => (
-                <CarouselItem key={card.question} className="pl-5 basis-auto">
+                <CarouselItem key={card.title} className="pl-5 basis-auto">
                   <article
-                    className={`relative flex h-full w-[min(85vw,320px)] flex-col rounded-3xl bg-card p-6 shadow-soft ring-1 ring-border/60 sm:w-[340px] sm:p-7 ${i === 0 ? "ring-2 ring-primary/20" : ""
-                      }`}
+                    className="relative flex h-full w-[min(85vw,320px)] flex-col rounded-3xl bg-white p-6 shadow-soft ring-1 ring-border/60 sm:w-[320px] sm:p-7"
                   >
-                    <span
-                      className="w-fit rounded-full px-3 py-1 text-xs font-semibold text-foreground/80"
-                      style={{ background: card.tagBg }}
-                    >
-                      {i === 0 ? "01 · Foundation" : `0${i + 1} · ${card.tag}`}
-                    </span>
-                    <h3 className="mt-4 text-2xl leading-tight">{card.question}</h3>
+                    <div className="flex w-full items-center justify-between">
+                      <span
+                        className="w-fit rounded-full px-3 py-1 text-[11px] font-semibold text-foreground/80"
+                        style={{ background: card.tagBg }}
+                      >
+                        {`0${i + 1} • ${card.tag}`}
+                      </span>
+                      {card.badge && (
+                        <span className="rounded-full bg-[#F3E8FF] px-3 py-1 text-[11px] font-semibold text-[#8B5CF6]">
+                          {card.badge}
+                        </span>
+                      )}
+                    </div>
+                    <h3 className="mt-5 text-2xl leading-tight">{card.title}</h3>
 
-                    {i === 0 ? (
-                      <div className="mt-5 flex flex-1 flex-col gap-4">
-                        {card.sections?.map((s) => (
-                          <div key={s.title}>
-                            <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                              {s.title}
-                            </p>
-                            <ul className="space-y-1.5">
-                              {s.items.map((it) => (
-                                <li
-                                  key={it}
-                                  className="flex items-start gap-2 text-sm text-foreground/85"
-                                >
-                                  <span className="mt-1.5 inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-brand-gradient" />
-                                  {it}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        ))}
+                    {card.bullets ? (
+                      <div className="mt-6 flex flex-1 flex-col gap-3">
+                        <ul className="space-y-3">
+                          {card.bullets.map((it) => (
+                            <li
+                              key={it}
+                              className="flex items-start gap-3 text-sm text-foreground/85"
+                            >
+                              <span className="mt-1.5 inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-brand-gradient" />
+                              {it}
+                            </li>
+                          ))}
+                        </ul>
+                        <p className="mt-auto pt-6 text-[11px] font-medium text-muted-foreground">
+                          {card.meta}
+                        </p>
                       </div>
                     ) : (
-                      <div className="mt-5 flex flex-1 flex-col gap-3">
-                        <span className="w-fit rounded-full bg-gradient-to-r from-[oklch(0.88_0.14_300)] via-[oklch(0.9_0.13_20)] to-[oklch(0.92_0.14_55)] px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-foreground/80">
-                          {card.status}
-                        </span>
+                      <div className="mt-6 flex flex-1 flex-col gap-4">
+                        {card.status && (
+                          <span className="w-fit rounded-full bg-gradient-to-r from-[oklch(0.88_0.14_300)] via-[oklch(0.9_0.13_20)] to-[oklch(0.92_0.14_55)] px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-white">
+                            {card.status}
+                          </span>
+                        )}
                         <p className="text-sm leading-relaxed text-foreground/80">
                           {card.description}
                         </p>
-                        <p className="mt-auto pt-4 text-xs font-medium text-muted-foreground">
+                        <p className="mt-auto pt-6 text-[11px] font-medium text-muted-foreground">
                           {card.meta}
                         </p>
                       </div>
@@ -610,14 +600,14 @@ function WhyExists() {
         </div>
 
         <div className="relative flex items-center justify-center w-full">
-          <div className="relative rounded-[2rem] bg-card sm:bg-transparent p-3 sm:p-0 shadow-soft sm:shadow-none ring-1 ring-border/50 sm:ring-0">
+          <div className="relative shadow-soft sm:shadow-none">
             <img
               src={founderImg}
               alt="Kyla, founder of Internet Girls"
               width={900}
               height={1100}
               loading="lazy"
-              className="h-[360px] w-[280px] sm:h-[520px] sm:w-[400px] rounded-[1.5rem] sm:rounded-[2rem] border-0 sm:border sm:border-black object-cover"
+              className="h-[360px] w-[280px] sm:h-[520px] sm:w-[400px] rounded-[1.5rem] sm:rounded-[2rem] border border-black object-cover"
             />
           </div>
         </div>
