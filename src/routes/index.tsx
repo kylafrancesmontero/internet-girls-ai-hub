@@ -478,8 +478,8 @@ function WhatYoullLearn() {
           </p>
         </div>
 
-        <div className="mt-10 flex justify-center text-center px-2 sm:px-4">
-          <span className="inline-block whitespace-nowrap rounded-[1.5rem] bg-white px-3 sm:px-5 py-2 sm:py-2.5 text-[9px] min-[390px]:text-[10.5px] sm:text-[12px] font-medium tracking-normal sm:tracking-wide text-foreground/80 shadow-soft">
+        <div className="mt-10 flex w-full justify-start sm:justify-center px-2 sm:px-4 overflow-x-auto pb-4 -mb-4 scrollbar-none">
+          <span className="inline-block whitespace-nowrap rounded-full bg-white px-4 sm:px-5 py-2 sm:py-2.5 text-[10px] sm:text-[12px] font-medium tracking-wide text-foreground/80 shadow-soft w-max mx-auto sm:mx-0">
             First Founding Batch • Starts 15 August • Weekly live sessions • <span className="font-semibold text-purple-600">Free</span>
           </span>
         </div>
