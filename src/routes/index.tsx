@@ -408,7 +408,6 @@ const LEARN_CARDS = [
   {
     tag: "Foundation",
     tagBg: "oklch(0.94 0.06 300)",
-    badge: "Free",
     title: "Getting Started",
     bullets: [
       "The New Era of AI",
@@ -479,8 +478,8 @@ function WhatYoullLearn() {
           </p>
         </div>
 
-        <div className="mt-10 flex justify-center">
-          <span className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-[12px] font-medium tracking-wide text-foreground/80 shadow-soft">
+        <div className="mt-10 flex justify-center text-center px-4">
+          <span className="inline-block rounded-[1.5rem] bg-white px-5 py-2.5 text-[12px] font-medium tracking-wide text-foreground/80 shadow-soft">
             First Founding Batch • Starts 15 August • Weekly live sessions • <span className="font-semibold text-purple-600">Free</span>
           </span>
         </div>
