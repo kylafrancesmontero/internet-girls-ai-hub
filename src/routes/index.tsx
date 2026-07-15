@@ -757,7 +757,7 @@ function FAQ() {
                 Who is Internet Girls for?
               </AccordionTrigger>
               <AccordionContent className="text-base text-muted-foreground leading-relaxed">
-                👩‍💻 Anyone who identifies as a woman and wants to learn AI, whether you’re just getting started or looking to build your confidence with AI.
+                👩‍💻 Made for women, and welcoming to anyone who wants to learn AI in a supportive community, whether you're a complete beginner or looking to grow your skills.
               </AccordionContent>
             </AccordionItem>
 
