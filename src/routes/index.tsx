@@ -434,7 +434,7 @@ const LEARN_CARDS = [
     tagBg: "oklch(0.94 0.06 55)",
     title: "AI for Marketing",
     status: "COMING SOON",
-    description: "Role-specific AI skills for modern marketers,",
+    description: "Role-specific AI skills for modern marketers.",
     meta: "Live • recorded replay",
   },
   {
