@@ -172,7 +172,7 @@ function Hero() {
   return (
     <section
       ref={heroRef}
-      className="relative overflow-hidden pt-24 pb-36 sm:pt-32 sm:pb-44 lg:pt-40 lg:pb-56"
+      className="relative overflow-hidden pt-16 pb-24 sm:pt-32 sm:pb-44 lg:pt-40 lg:pb-56"
     >
       {/* soft gradient glow */}
       <div className="pointer-events-none absolute inset-0 -z-10">
@@ -354,6 +354,7 @@ function WaitlistCard() {
         },
       });
       setSubmitted(true);
+      setTimeout(() => alert("Thank you for joining our waitlist! You're in ✨"), 100);
     } catch (error) {
       console.error(error);
       alert("Something went wrong. Please try again.");
@@ -387,14 +388,14 @@ function WaitlistCard() {
       <button
         type="submit"
         disabled={loading || submitted}
-        className="flex shrink-0 w-[120px] flex-col items-center justify-center rounded-2xl bg-brand-gradient py-2 text-center text-sm font-semibold leading-tight text-white shadow-soft transition-transform hover:scale-[1.02] disabled:pointer-events-none disabled:opacity-80"
+        className="flex shrink-0 w-full sm:w-[120px] flex-col items-center justify-center rounded-2xl bg-brand-gradient py-3 sm:py-2 text-center text-sm font-semibold leading-tight text-white shadow-soft transition-transform hover:scale-[1.02] disabled:pointer-events-none disabled:opacity-80"
       >
         {loading ? (
           "Joining..."
         ) : submitted ? (
-          <>You're<br />in ✨</>
+          <>You're<br className="hidden sm:block" /> in ✨</>
         ) : (
-          <>Join the<br />Waitlist</>
+          <>Join the<br className="hidden sm:block" /> Waitlist</>
         )}
       </button>
     </form>
@@ -473,7 +474,7 @@ const LEARN_CARDS = [
 
 function WhatYoullLearn() {
   return (
-    <section className="relative py-24">
+    <section className="relative py-16 sm:py-24">
       <div className="mx-auto w-[min(1200px,calc(100%-2rem))]">
         <div className="mx-auto max-w-2xl text-center">
           <span className="text-xs font-medium uppercase tracking-wider text-primary/80">
@@ -487,20 +488,12 @@ function WhatYoullLearn() {
         </div>
 
         <div className="mt-10 flex justify-center">
-          <span className="inline-flex items-center gap-2 rounded-full glass px-4 py-2 text-[11px] font-medium tracking-wide text-foreground/80">
+          <span className="inline-flex items-center gap-2 rounded-lg bg-brand-gradient px-4 py-2 text-[11px] font-medium tracking-wide text-white shadow-soft">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="shrink-0">
               <path
                 d="M12 2.5c-3 3-4 7-4 10v2l-3 3 4-1 2 5 2-5 4 1-3-3v-2c0-3-1-7-4-10z"
-                fill="url(#rocketGradient)"
+                fill="currentColor"
               />
-              <circle cx="12" cy="12" r="1.5" fill="white" />
-              <defs>
-                <linearGradient id="rocketGradient" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
-                  <stop offset="0%" stopColor="oklch(0.72 0.18 300)" />
-                  <stop offset="55%" stopColor="oklch(0.78 0.17 5)" />
-                  <stop offset="100%" stopColor="oklch(0.84 0.15 55)" />
-                </linearGradient>
-              </defs>
             </svg>
             First Foundation Batch • Starts 2nd Week of August • Live + Prerecorded
           </span>
@@ -578,8 +571,8 @@ function WhatYoullLearn() {
 
 function WhyExists() {
   return (
-    <section className="relative py-24">
-      <div className="mx-auto grid w-[min(1200px,calc(100%-2rem))] items-center gap-14 lg:grid-cols-2">
+    <section className="relative py-16 sm:py-24">
+      <div className="mx-auto flex flex-col-reverse lg:grid w-[min(1200px,calc(100%-2rem))] items-center gap-14 lg:grid-cols-2">
         <div>
           <span className="text-xs font-medium uppercase tracking-wider text-primary/80">
             Our Story
@@ -594,40 +587,37 @@ function WhyExists() {
               Hey there, I’m Kyla. 👋
             </p>
             <p>
-              I created Internet Girls because I believe AI will become as essential as the internet or email. It will shape how we work, create, and grow.
+              Growing up in Southeast Asia, I saw no shortage of talent or ambition, but very few accessible spaces to learn emerging tech.
             </p>
             <p>
-              As I explored AI, I noticed many women around me were curious but overwhelmed. There were endless tools, technical terms, and advice, but not enough spaces where beginners could learn without feeling intimidated.
+              As I explored new jobs and opportunities, I realized I needed to upskill with AI, but I was hit by a wall of overwhelming content and expensive courses.
             </p>
             <p>
-              Growing up in Southeast Asia, I saw so many talented and ambitious women eager to embrace new technology but without a welcoming community to learn alongside.
-            </p>
-            <p>
-              I didn’t want to create another course. I wanted to build a community where women could ask questions, experiment, and learn together at their own pace.
+              That’s why Internet Girls exists: a free community making AI learning practical, fun, and accessible through workshops, shared resources, and a supportive community.
             </p>
             <p className="font-medium text-foreground">
-              We’re building a future where every woman across Southeast Asia has the confidence to use AI, no matter where she’s starting from.
+              AI is the next internet revolution, and we’re making sure no one gets left behind.
             </p>
           </div>
           <div className="mt-8 flex items-center gap-3">
             <div>
-              <p className="font-semibold">Kyla · Founder, Internet Girls</p>
+              <p className="font-semibold">Kyla Montero · Founder, Internet Girls</p>
               <p className="text-sm text-muted-foreground">
-                Free AI literacy for Women
+                Free AI literacy for women
               </p>
             </div>
           </div>
         </div>
 
-        <div className="relative flex items-center justify-center">
-          <div className="relative rounded-[2rem] shadow-soft">
+        <div className="relative flex items-center justify-center w-full">
+          <div className="relative rounded-[2rem] bg-card sm:bg-transparent p-3 sm:p-0 shadow-soft sm:shadow-none ring-1 ring-border/50 sm:ring-0">
             <img
               src={founderImg}
               alt="Kyla, founder of Internet Girls"
               width={900}
               height={1100}
               loading="lazy"
-              className="h-[520px] w-[400px] rounded-[2rem] border border-black object-cover"
+              className="h-[360px] w-[280px] sm:h-[520px] sm:w-[400px] rounded-[1.5rem] sm:rounded-[2rem] border-0 sm:border sm:border-black object-cover"
             />
           </div>
         </div>
@@ -640,7 +630,7 @@ function WhyExists() {
 
 function Community() {
   return (
-    <section className="relative py-24">
+    <section className="relative py-16 sm:py-24">
       <div className="mx-auto grid w-[min(1200px,calc(100%-2rem))] items-start gap-14 lg:grid-cols-2">
         <div className="lg:sticky lg:top-28">
           <span className="text-xs font-medium uppercase tracking-wider text-primary/80">
@@ -716,7 +706,7 @@ function Stat({ value, label }: { value: string; label: string }) {
 
 function FinalCTA() {
   return (
-    <section className="relative py-24">
+    <section className="relative py-16 sm:py-24">
       <div className="mx-auto w-[min(1100px,calc(100%-2rem))]">
         <div className="relative overflow-hidden rounded-[2.5rem] bg-brand-gradient px-6 py-20 text-center text-white sm:px-16">
           <div className="pointer-events-none absolute inset-0 opacity-40">
@@ -729,7 +719,7 @@ function FinalCTA() {
             </h2>
             <p className="mx-auto mt-6 max-w-2xl text-2xl font-medium text-white/95 leading-relaxed">
               The first foundational batch launches in the<br className="hidden sm:block" />
-              <span className="inline-block mt-2 rounded-full bg-white/25 px-5 py-1.5 font-semibold text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)] ring-1 ring-white/40 backdrop-blur-md">
+              <span className="inline-block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 to-pink-200 font-bold text-xl sm:text-2xl drop-shadow-sm">
                 second week of August 2026
               </span>
             </p>
@@ -754,7 +744,7 @@ function FinalCTA() {
 
 function FAQ() {
   return (
-    <section className="relative py-24">
+    <section className="relative py-16 sm:py-24">
       <div className="mx-auto w-[min(800px,calc(100%-2rem))]">
         <div className="text-center">
           <h2 className="text-4xl sm:text-5xl">Got Questions?</h2>

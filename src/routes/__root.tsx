@@ -168,7 +168,7 @@ function SiteNav() {
           <Link
             to="/"
             hash="waitlist"
-            className="hidden rounded-full px-4 py-2 font-medium text-foreground/80 hover:text-foreground sm:inline-block"
+            className="rounded-full px-3 sm:px-4 py-2 font-medium text-foreground/80 hover:text-foreground text-xs sm:text-sm"
           >
             Join the Waitlist
           </Link>
