@@ -168,6 +168,15 @@ function SiteNav() {
           <Link
             to="/"
             hash="waitlist"
+            onClick={() => {
+              // Force scroll when clicked again
+              const target = document.getElementById("waitlist");
+              if (target) {
+                target.scrollIntoView({ behavior: "smooth" });
+              }
+              // Dispatch event to trigger cute input highlight & tooltip
+              window.dispatchEvent(new CustomEvent("focusWaitlist"));
+            }}
             className="rounded-full px-3 sm:px-4 py-2 font-medium text-foreground/80 hover:text-foreground text-xs sm:text-sm"
           >
             Join the Waitlist

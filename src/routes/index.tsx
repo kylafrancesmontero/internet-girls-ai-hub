@@ -171,6 +171,7 @@ function Hero() {
 
   return (
     <section
+      id="waitlist"
       ref={heroRef}
       className="relative overflow-hidden pt-16 pb-24 sm:pt-32 sm:pb-44 lg:pt-40 lg:pb-56"
     >
@@ -341,6 +342,18 @@ function SparkleStarSticker() {
 function WaitlistCard() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [showHint, setShowHint] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    function handleFocusWaitlist() {
+      setShowHint(true);
+      inputRef.current?.focus();
+      setTimeout(() => setShowHint(false), 3000);
+    }
+    window.addEventListener("focusWaitlist", handleFocusWaitlist);
+    return () => window.removeEventListener("focusWaitlist", handleFocusWaitlist);
+  }, []);
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -354,6 +367,7 @@ function WaitlistCard() {
         },
       });
       setSubmitted(true);
+      setShowHint(false);
       setTimeout(() => alert("Thank you for joining our waitlist! You're in ✨"), 100);
     } catch (error) {
       console.error(error);
@@ -364,41 +378,55 @@ function WaitlistCard() {
   }
 
   return (
-    <form
-      id="waitlist"
-      onSubmit={onSubmit}
-      className="glass-strong mt-8 flex w-full max-w-xl flex-col gap-3 rounded-3xl p-4 sm:flex-row sm:items-center"
-    >
-      <input
-        required
-        type="text"
-        name="name"
-        placeholder="Full name"
-        disabled={loading}
-        className="flex-1 min-w-0 rounded-2xl border-0 bg-white/70 px-4 py-3 text-sm outline-none ring-1 ring-inset ring-border/60 focus:ring-2 focus:ring-primary disabled:opacity-50"
-      />
-      <input
-        required
-        type="email"
-        name="email"
-        placeholder="you@email.com"
-        disabled={loading}
-        className="flex-[1.4] min-w-0 rounded-2xl border-0 bg-white/70 px-4 py-3 text-sm outline-none ring-1 ring-inset ring-border/60 focus:ring-2 focus:ring-primary disabled:opacity-50"
-      />
-      <button
-        type="submit"
-        disabled={loading || submitted}
-        className="flex shrink-0 w-full sm:w-[120px] flex-col items-center justify-center rounded-2xl bg-brand-gradient py-3 sm:py-2 text-center text-sm font-semibold leading-tight text-white shadow-soft transition-transform hover:scale-[1.02] disabled:pointer-events-none disabled:opacity-80"
+    <div className="relative w-full max-w-xl">
+      {/* Cute tooltip hint */}
+      <div
+        className={`pointer-events-none absolute -top-12 left-6 z-10 flex items-center gap-1.5 rounded-full bg-brand-gradient px-4 py-2 text-sm font-semibold text-white shadow-lg transition-all duration-300 ${
+          showHint ? "translate-y-0 opacity-100 scale-100" : "translate-y-4 opacity-0 scale-95"
+        }`}
       >
-        {loading ? (
-          "Joining..."
-        ) : submitted ? (
-          <>You're<br className="hidden sm:block" /> in ✨</>
-        ) : (
-          <>Join the<br className="hidden sm:block" /> Waitlist</>
-        )}
-      </button>
-    </form>
+        <span>Fill out your details here! 💖</span>
+        <div className="absolute -bottom-1.5 left-6 h-3 w-3 rotate-45 bg-[#F9A8D4]" />
+      </div>
+
+      <form
+        onSubmit={onSubmit}
+        className={`glass-strong mt-8 flex w-full flex-col gap-3 rounded-3xl p-4 sm:flex-row sm:items-center transition-all duration-300 ${
+          showHint ? "ring-4 ring-[#F9A8D4]/50 scale-[1.02]" : "ring-1 ring-border/50"
+        }`}
+      >
+        <input
+          ref={inputRef}
+          required
+          type="text"
+          name="name"
+          placeholder="Full name"
+          disabled={loading}
+          className="flex-1 min-w-0 rounded-2xl border-0 bg-white/70 px-4 py-3 text-sm outline-none ring-1 ring-inset ring-border/60 focus:ring-2 focus:ring-primary disabled:opacity-50"
+        />
+        <input
+          required
+          type="email"
+          name="email"
+          placeholder="you@email.com"
+          disabled={loading}
+          className="flex-[1.4] min-w-0 rounded-2xl border-0 bg-white/70 px-4 py-3 text-sm outline-none ring-1 ring-inset ring-border/60 focus:ring-2 focus:ring-primary disabled:opacity-50"
+        />
+        <button
+          type="submit"
+          disabled={loading || submitted}
+          className="flex shrink-0 w-full sm:w-[120px] flex-col items-center justify-center rounded-2xl bg-brand-gradient py-3 sm:py-2 text-center text-sm font-semibold leading-tight text-white shadow-soft transition-transform hover:scale-[1.02] disabled:pointer-events-none disabled:opacity-80"
+        >
+          {loading ? (
+            "Joining..."
+          ) : submitted ? (
+            <>You're<br className="hidden sm:block" /> in ✨</>
+          ) : (
+            <>Join the<br className="hidden sm:block" /> Waitlist</>
+          )}
+        </button>
+      </form>
+    </div>
   );
 }
 
@@ -717,6 +745,16 @@ function FinalCTA() {
             </p>
             <a
               href="#waitlist"
+              onClick={(e) => {
+                const target = document.getElementById("waitlist");
+                if (target) {
+                  e.preventDefault();
+                  target.scrollIntoView({ behavior: "smooth" });
+                  window.history.pushState(null, "", "#waitlist");
+                }
+                // Dispatch event to trigger cute input highlight & tooltip
+                window.dispatchEvent(new CustomEvent("focusWaitlist"));
+              }}
               className="mt-9 inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-foreground shadow-soft transition-transform hover:scale-[1.03]"
             >
               Join the Waitlist
